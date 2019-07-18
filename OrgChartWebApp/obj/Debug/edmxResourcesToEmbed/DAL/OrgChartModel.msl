@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrgChartDatabaseModelStoreContainer" CdmEntityContainer="OrgChartDatabaseEntities">
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="OrgChartDatabaseModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgchartUsers">
+      <EntityTypeMapping TypeName="OrgChartDatabaseModel.OrgchartUser">
+        <MappingFragment StoreEntitySet="OrgchartUsers">
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="OrgChartDatabaseModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="loginUsuario" ColumnName="loginUsuario" />
+          <ScalarProperty Name="emailUsuario" ColumnName="emailUsuario" />
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+          <ScalarProperty Name="fk_Directorio" ColumnName="fk_Directorio" />
+          <ScalarProperty Name="pk_Usuario" ColumnName="pk_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

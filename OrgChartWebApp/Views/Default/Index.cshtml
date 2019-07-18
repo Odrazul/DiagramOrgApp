@@ -1,0 +1,205 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrgChart</title>
+    <script src="~/Scripts/OrgChart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+
+        .field_0 {
+            font-family: Impact;
+        }
+    </style>
+</head>
+<body>
+    <div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:300px;background-color:#F57C00;z-index:10000; ">
+            <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;">Edit Form</div>
+            <div>
+                <div style="padding: 10px 0 5px 0;">
+                    <label style="color:#ffffff; width:50px; display:inline-block;" for="name">Name</label>
+                    <input style="background-color:#FFCA28" id="name" value="" />
+                </div>
+                <div style="padding: 10px 0 5px 0;">
+                    <label style="color:#ffffff; width:50px; display:inline-block;" for="name">Origen Usuario</label>
+                    <select id="cmdSelect" class="form-control">
+                        <option value="0">BD</option>
+                        <option value="1">LDAP</option>
+                    </select>
+                </div>
+                <div style="padding: 10px 0 5px 0;">
+                    <label style="color:#ffffff; width:50px; display:inline-block;" for="name">Usuarios</label>
+                    <select id="cmbUsers" class="form-control"></select>
+                </div>
+                <div style="padding: 5px 0 10px 0;">
+                    <label style="color:#ffffff; width:50px; display:inline-block;" for="title">Title</label>
+                    <input style="background-color:#FFCA28" id="title" value="" />
+                </div>
+                <div style="padding: 5px 0 15px 0;">
+                    <button style="width:108px;" id="cancel">Cancelar</button>
+                    <button style="width:108px;" id="save">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+
+    <div id="tree"></div>
+
+
+    <script>     
+
+        var editForm = function () {
+            this.nodeId = null;
+        };
+
+        editForm.prototype.init = function (obj) {
+            var that = this;
+            this.obj = obj;
+            this.editForm = document.getElementById("editForm");
+            this.nameInput = document.getElementById("name");
+            this.titleInput = document.getElementById("title");
+            this.cancelButton = document.getElementById("cancel");
+            this.saveButton = document.getElementById("save");
+
+            this.cancelButton.addEventListener("click", function () {
+                that.hide();
+            });
+
+            this.saveButton.addEventListener("click", function () {
+                var node = chart.get(that.nodeId);
+                //node.name = that.nameInput.value;
+                node.name = $("#cmbUsers").val();
+                node.title = that.titleInput.value;
+
+                chart.updateNode(node);
+                guardarNodo(node);
+                that.hide();
+            });
+        };
+
+        editForm.prototype.show = function (nodeId) {
+            this.nodeId = nodeId;
+
+            var left = document.body.offsetWidth / 2 - 150;
+            this.editForm.style.display = "block";
+            this.editForm.style.left = left + "px";
+            var node = chart.get(nodeId);
+            this.nameInput.value = node.name;
+            this.titleInput.value = node.title;
+        };
+
+        editForm.prototype.hide = function (showldUpdateTheNode) {
+            this.editForm.style.display = "none";
+        };
+        var chart;
+         $.get("@Url.Action("Read")").done(function (response) {
+            chart = new OrgChart(document.getElementById("tree"), {
+                nodeMenu: {
+                    details: { text: "Details" },
+                    edit: { text: "Edit" },
+                    add: { text: "Add" },
+                    remove: { text: "Remove" }
+                },
+                editUI: new editForm(),
+                nodeBinding: {
+                    field_0: "name",
+                    field_1: "title"
+                },
+                nodes: response.nodes
+            });
+        });
+
+        function getAllUsers() {
+            $.ajax({
+                type: "POST",
+                url: "/Ldap/GetLDAPUsers",
+                success: function (result) {
+                    if (result) {
+                        $('#cmbUsers').append(
+                            $('<option></option>').val(0).html("Seleccione un Usuario")
+                        );
+                        result.forEach((item, index) => {
+                            $('#cmbUsers').append(
+                                $('<option></option>').val(item.UserName).html(item.Apellido + " " + item.PrimerNombre)
+                            );
+                            console.log(item);
+                        });
+                    } else {
+                        console.log("no se encontraron usuarios");
+                    }
+                }
+            });
+        }
+
+        function getAllDbUsers() {
+            $.ajax({
+                type: "POST",
+                url: "/Usuarios/GetDBUsers",
+                success: function (result) {
+                    if (result.nodes) {
+                        $('#cmbUsers').append(
+                            $('<option></option>').val(0).html("Seleccione un Usuario")
+                        );
+                        result.nodes.forEach((item, index) => {
+                            $('#cmbUsers').append(
+                                $('<option></option>').val(item.loginUsuario).html(item.nombreUsuario)
+                            );
+                            console.log(item);
+                        });
+                    } else {
+                        console.log("no se encontraron usuarios");
+                    }
+                }
+            });
+        }
+
+        function guardarNodo(node) {
+            if (isNaN(node.id)) {
+                node.id = 0;
+                node.pid = parseInt(node.pid);
+            }
+             $.post("@Url.Action("UpdateNode")", node)
+                .done(function () {
+                })
+            return false;
+        }
+
+        $("#cmdSelect").change(() => {
+            $("#cmbUsers").empty();
+            if ($("#cmdSelect").val() == 0) {
+                getAllDbUsers();
+            }
+            if ($("#cmdSelect").val() == 1) {
+                getAllUsers();
+            }
+        })
+
+        function init() {
+           getAllDbUsers();
+        }
+
+        init();
+
+
+    </script>
+</body>
+</html>
