@@ -67,7 +67,6 @@ namespace DiagramOrgApp.Controllers
             string password = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAP_Password"].ToString();
 
 
-            string criterios = "(uid=*)";
             List<LdapUsers> listaUsuarios = new List<LdapUsers>();
             try
             {
@@ -94,6 +93,8 @@ namespace DiagramOrgApp.Controllers
                     });
                 }
 
+                dEntry.Dispose();
+                dSearcher.Dispose();
             }
             catch (Exception ex)
             {

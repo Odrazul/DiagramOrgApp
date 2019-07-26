@@ -35,17 +35,26 @@ namespace DiagramOrgApp.Controllers
         {    
             try
             {
-                var node = entities.OrgchartUsers.Single(p => p.id == model.id);
-                if (node != null)
+                
+                if (entities.OrgchartUsers.Find(model.id) == null)
                 {
-                    node.name = model.name;
-                    node.pid = model.pid;
-                    node.title = model.title;
-                    node.id = model.id;
-                    entities.Entry(node).State = System.Data.Entity.EntityState.Modified;
-                    entities.SaveChanges();
-                    return new EmptyResult();
+                    AddNode(model);
                 }
+                else
+                {
+                    var node = entities.OrgchartUsers.Single(p => p.id == model.id);
+                    if (node != null)
+                    {
+                        node.name = model.name;
+                        node.pid = model.pid;
+                        node.title = model.title;
+                        node.id = model.id;
+                        entities.Entry(node).State = System.Data.Entity.EntityState.Modified;
+                        entities.SaveChanges();
+                        return new EmptyResult();
+                    }
+                }
+
             } catch (Exception ex)
             {
                 return new EmptyResult();
@@ -55,31 +64,39 @@ namespace DiagramOrgApp.Controllers
 
         public EmptyResult RemoveNode(int id)
         {
-            var node = entities.Employees.First(p => p.Id == id);
-            entities.Employees.Remove(node);
+            var node = entities.OrgchartUsers.First(p => p.id == id);
+            entities.OrgchartUsers.Remove(node);
 
-            int? parentId = node.ReportsTo;
+            int? parentId = node.pid;
 
-            var children = entities.Employees.Where(p => p.ReportsTo == node.Id);
+            var children = entities.OrgchartUsers.Where(p => p.pid == node.id);
             foreach (var child in children)
             {
-                child.ReportsTo = node.ReportsTo;
+                child.pid = node.pid;
             }
 
             entities.SaveChanges();
             return new EmptyResult();
         }
 
-        public JsonResult AddNode(NodeModel model)
+        public JsonResult AddNode(EmployeeNodeModel model)
         {
-            Employee employee = new Employee();
-            employee.FullName = model.fullName;
-            employee.ReportsTo = model.pid;
-            entities.Employees.Add(employee);
 
+            //node.name = model.name;
+            //node.pid = model.pid;
+            //node.title = model.title;
+            //node.id = model.id;
+
+
+            OrgchartUser employee = new OrgchartUser();
+            employee.id = model.id;
+            employee.pid = model.pid;
+            employee.name = model.name;
+            employee.title = model.title;
+            entities.OrgchartUsers.Add(employee);
             entities.SaveChanges();
 
-            return Json(new { id = employee.Id }, JsonRequestBehavior.AllowGet);
+            return Json(new { id = employee.id }, JsonRequestBehavior.AllowGet);
         }
     }
 }

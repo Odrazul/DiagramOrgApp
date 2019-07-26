@@ -50,10 +50,16 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EntityLite, Version=2.9.0.0, Culture=neutral, PublicKeyToken=8ba7eec58c815de9, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityLite.Core.2.9.0-Beta3\lib\net452\EntityLite.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -112,9 +118,15 @@
       <DependentUpon>OrgChartModel.edmx</DependentUpon>
       <LastGenOutput>OrgChartModel.cs</LastGenOutput>
     </Content>
+    <Content Include="DataLayer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataLayer.cs</LastGenOutput>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\orgchart.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -143,6 +155,11 @@
       <DependentUpon>OrgChartModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Usuario.cs" />
+    <Compile Include="DataLayer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataLayer.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,6 +179,25 @@
     <Content Include="DAL\OrgChartModel.edmx.diagram">
       <DependentUpon>OrgChartModel.edmx</DependentUpon>
     </Content>
+    <Content Include="EntityLite.ttinclude\TypeScriptAttributeGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\TextTransform.ttinclude" />
+    <Content Include="EntityLite.ttinclude\Sequence.ttinclude" />
+    <Content Include="EntityLite.ttinclude\RoundDateJsonConverterGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\ProcedureSetting.ttinclude" />
+    <Content Include="EntityLite.ttinclude\ProcedureResultSetKind.ttinclude" />
+    <Content Include="EntityLite.ttinclude\ProcedureGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\MemberVisibility.ttinclude" />
+    <Content Include="EntityLite.ttinclude\JsonType.ttinclude" />
+    <Content Include="EntityLite.ttinclude\FieldMetadata.ttinclude" />
+    <Content Include="EntityLite.ttinclude\FieldGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\Extensions.ttinclude" />
+    <Content Include="EntityLite.ttinclude\EnumSetting.ttinclude" />
+    <Content Include="EntityLite.ttinclude\EnumGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\EntitySetting.ttinclude" />
+    <Content Include="EntityLite.ttinclude\EntityLite.ttinclude" />
+    <Content Include="EntityLite.ttinclude\EntityGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\DataServiceGeneration.ttinclude" />
+    <Content Include="EntityLite.ttinclude\DataLayerGeneration.ttinclude" />
     <None Include="packages.config" />
     <Content Include="Views\Default\Index.cshtml" />
     <None Include="Web.Debug.config">
@@ -169,6 +205,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
