@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -17,19 +18,76 @@ namespace DiagramOrgApp.Controllers
             return View();
         }
 
-        public JsonResult Read()
+     public JsonResult Read()
         {
-            var nodes = entities.Usuario.Select(p =>
-            new NodoElementoModel
-            {
-                id = p.pk_Usuario,
-                fk_Directorio = p.fk_Directorio,
-                loginUsuario = p.loginUsuario,
-                nombreUsuario = p.nombreUsuario,
-                emailUsuario = p.emailUsuario
+            //Codigo ilustrativo para consultar con linq varias tablas
 
+            //var usuarios = (from u in entities.Usuario
+            //               join e in entities.Elemento on u.pk_Usuario equals e.ak_ElementoPadre
+            //               join te in entities.TipoElemento on e.fk_TipoElemento equals te.pk_TipoElemento
+            //               where u.fk_Directorio == 1
+            //               select new EmployeeNodeModel
+            //               {
+            //                   id = u.pk_Usuario,
+            //                   name = u.nombreUsuario,
+            //                   title = te.nomTipoElemento
+            //               }).ToList();
+
+
+            List <EmployeeNodeModel > usuarios = new List<EmployeeNodeModel>();
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 1,
+                tags = new string[] { "Directors"},
+                name = "Billy Moore",
+                title = "CEO",             
+                img = "https://balkangraph.com/js/img/2.jpg",
+                pid = 3
             });
-            return Json(new { nodes = nodes }, JsonRequestBehavior.AllowGet);
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 2,
+                tags = new string[] { "Directors"},
+                name = "Bennie Shelto",
+                title = "Director",
+                img = "https://balkangraph.com/js/img/3.jpg",
+                pid = 3
+            });
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 3,
+                name = "Billie Ros",
+                title = "Dev Team Lead",
+                img = "https://balkangraph.com/js/img/5.jpg"
+            });
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 4,
+                tags = new string[] { "Devs" },
+                name = "Pedro Perez",
+                title = "Analista",
+                img = "https://balkangraph.com/js/img/3.jpg",
+                pid = 3
+            });
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 5,
+                tags = new string[] { "Devs" },
+                name = "Jaime Perez",
+                title = "Analista",
+                img = "https://balkangraph.com/js/img/3.jpg",
+                pid = 3
+            });
+            usuarios.Add(new EmployeeNodeModel()
+            {
+                id = 6,             
+                name = "Luisa Perez",
+                title = "Analista",
+                img = "https://balkangraph.com/js/img/3.jpg",
+                pid = 3
+            });
+
+            return Json(new { nodes = usuarios }, JsonRequestBehavior.AllowGet);
         }
 
 
