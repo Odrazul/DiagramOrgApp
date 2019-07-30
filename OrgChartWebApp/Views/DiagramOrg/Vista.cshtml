@@ -1,4 +1,4 @@
-﻿@{
+@{
     Layout = null;
 }
 
@@ -8,10 +8,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>OrgChart</title>
-    <script src="~/Scripts/OrgChart.js"></script>
+    @*<script src="~/Scripts/OrgChart.js"></script>*@
+    <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
     <style>
+
         html, body {
             width: 100%;
             height: 100%;
@@ -188,34 +189,55 @@
         };
 
         var chart;
-         $.get("@Url.Action("Read")").done(function (response) {
+        $.get("@Url.Action("Read")").done(function (response) {
+            console.log(response.nodes);
             chart = new OrgChart(document.getElementById("tree"), {
+                template: "olivia",
+                enableDragDrop: true,
+                nodeMouseClick: OrgChart.action.edit,
                 nodeMenu: {
-                    details: { text: "Detalles" },
-                    edit: { text: "Editar" },
-                    addInGroup: { text: "Agregar Grupo" },
-                    add: { text: "Agregar Usuario" },
-                    remove: { text: "Eliminar" }
+                    details: { text: "Details" },
+                    edit: { text: "Edit" },
+                    add: { text: "Add" },
+                    remove: { text: "Remove" }
                 },
-                editUI: new editForm(),
-                nodeBinding: {
-                    field_0: "nombreUsuario",
-                    field_1: "loginUsuario",
-                    field_2: "nombreUsuario",
-                    field_3: "nombreUsuario",
-                    field_4: "emailUsuario"
-
+                dragDropMenu: {
+                    addInGroup: { text: "Add in group" },
+                    addAsChild: { text: "Add as child" }
                 },
-                removeUI: new deleteForm(),
                 nodeBinding: {
-                    field_0: "pk_Usuario",
-                    field_1: "fk_Directorio",
-                    field_2: "loginUsuario",
-                    field_3: "nombreUsuario",
-                    field_4: "emailUsuario"
-
+                    field_0: "name",
+                    field_1: "title",
+                    img_0: "img"
+                },
+                tags: {
+                    Directors: {
+                        group: true,
+                        groupName: "Directors",
+                        groupState: OrgChart.EXPAND,
+                        template: "group_grey"
+                    },
+                    HRs: {
+                        group: true,
+                        groupName: "HR Team",
+                        groupState: OrgChart.COLLAPSE,
+                        template: "group_grey"
+                    },
+                    Sales: {
+                        group: true,
+                        groupName: "Sales Team",
+                        groupState: OrgChart.EXPAND,
+                        template: "group_grey"
+                    },
+                    Devs: {
+                        group: true,
+                        groupName: "Dev Team",
+                        groupState: OrgChart.EXPAND,
+                        template: "group_grey"
+                    }
                 },
                 nodes: response.nodes
+                
             });
         });
 
