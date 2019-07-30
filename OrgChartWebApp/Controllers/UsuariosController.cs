@@ -12,18 +12,29 @@ namespace DiagramOrgApp.Controllers
 {
     public class UsuariosController : Controller
     {
-        private OrgChartDatabaseEntities db = new OrgChartDatabaseEntities();
+        private DozzierOCEntities db = new DozzierOCEntities();
 
         public JsonResult GetDBUsers()
         {
-            var nodes = db.Usuarios.ToList();
+
+            List<Usuario> list = db.Usuario.ToList();
+
+            var nodes = list.Select(L => new {
+                L.pk_Usuario,
+                L.fk_Directorio,
+                L.loginUsuario,
+                L.nombreUsuario,
+                L.emailUsuario
+            });
+
+                 
             return Json(new { nodes = nodes }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            return View(db.Usuario.ToList());
         }
 
         // GET: Usuarios/Details/5
@@ -33,7 +44,7 @@ namespace DiagramOrgApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -56,7 +67,7 @@ namespace DiagramOrgApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Usuarios.Add(usuario);
+                db.Usuario.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -71,7 +82,7 @@ namespace DiagramOrgApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -102,7 +113,7 @@ namespace DiagramOrgApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -115,8 +126,8 @@ namespace DiagramOrgApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            Usuario usuario = db.Usuario.Find(id);
+            db.Usuario.Remove(usuario);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

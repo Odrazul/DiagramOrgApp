@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrgChartWebApp</RootNamespace>
-    <AssemblyName>OrgChartWebApp</AssemblyName>
+    <RootNamespace>DiagramOrgApp</RootNamespace>
+    <AssemblyName>DiagramOrgApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -108,14 +108,19 @@
     <Content Include="App_Data\OrgChartDatabase_log.ldf">
       <DependentUpon>OrgChartDatabase.mdf</DependentUpon>
     </Content>
-    <Content Include="DAL\OrgChartModel.Context.tt">
+    <Content Include="DAL\DozzierOCModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OrgChartModel.Context.cs</LastGenOutput>
-      <DependentUpon>OrgChartModel.edmx</DependentUpon>
+      <LastGenOutput>DozzierOCModel.Context.cs</LastGenOutput>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DAL\DozzierOCModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DozzierOCModel.cs</LastGenOutput>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
     </Content>
     <Content Include="DAL\OrgChartModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrgChartModel.edmx</DependentUpon>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
       <LastGenOutput>OrgChartModel.cs</LastGenOutput>
     </Content>
     <Content Include="DataLayer.tt">
@@ -123,6 +128,15 @@
       <LastGenOutput>DataLayer.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\orgchart.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -131,30 +145,54 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\DiagramOrgController.cs" />
+    <Compile Include="Controllers\DirectoriosController.cs" />
     <Compile Include="Controllers\LdapController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
-    <Compile Include="DAL\Employee.cs">
-      <DependentUpon>OrgChartModel.tt</DependentUpon>
+    <Compile Include="DAL\Directorio.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\OrgChartModel.Context.cs">
+    <Compile Include="DAL\DozzierOCModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrgChartModel.Context.tt</DependentUpon>
+      <DependentUpon>DozzierOCModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\DozzierOCModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Elemento.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Employees.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Funcion.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Organizacion.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\OrgChartModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OrgChartModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\OrgChartModel.Designer.cs">
+    <Compile Include="DAL\DozzierOCModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrgChartModel.edmx</DependentUpon>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAL\OrgchartUser.cs">
-      <DependentUpon>OrgChartModel.tt</DependentUpon>
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Usuario.cs" />
+    <Compile Include="DAL\TipoElemento.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Usuario.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NodoElementoModel.cs" />
     <Compile Include="Models\EmployeeNodeModel.cs" />
     <Compile Include="Models\LdapUsers.cs" />
     <Compile Include="Models\NodeModel.cs" />
@@ -172,12 +211,12 @@
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <EntityDeploy Include="DAL\OrgChartModel.edmx">
+    <EntityDeploy Include="DAL\DozzierOCModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrgChartModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DozzierOCModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAL\OrgChartModel.edmx.diagram">
-      <DependentUpon>OrgChartModel.edmx</DependentUpon>
+    <Content Include="DAL\DozzierOCModel.edmx.diagram">
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
     </Content>
     <Content Include="EntityLite.ttinclude\TypeScriptAttributeGeneration.ttinclude" />
     <Content Include="EntityLite.ttinclude\TextTransform.ttinclude" />
@@ -200,6 +239,12 @@
     <Content Include="EntityLite.ttinclude\DataLayerGeneration.ttinclude" />
     <None Include="packages.config" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\DiagramOrg\Create.cshtml" />
+    <Content Include="Views\DiagramOrg\Delete.cshtml" />
+    <Content Include="Views\DiagramOrg\Details.cshtml" />
+    <Content Include="Views\DiagramOrg\Edit.cshtml" />
+    <Content Include="Views\DiagramOrg\Vista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,6 +254,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Directorios\" />
     <Folder Include="Views\Ldap\" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +263,10 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

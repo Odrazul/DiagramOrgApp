@@ -4965,7 +4965,8 @@ BALKANGraph._am = function (e, d, a, b) {
     }
 };
 BALKANGraph._q = function (a) {
-    return '<a style="text-decoration: none;position:absolute;bottom:' + a + "px;left:" + a + 'px;" title="OrgChart | BALKANGraph" href="https://BALKANGraph.com"><span style="color:#039BE5;font-family:Roboto,Roboto-Regular,Helvetica;font-weight:bold;">BALKAN</span><span style="color:#F57C00;font-family:Roboto,Roboto-Regular,Helvetica;">Graph</span></a>'
+    //return '<a style="text-decoration: none;position:absolute;bottom:' + a + "px;left:" + a + 'px;" title="OrgChart | BALKANGraph" href="https://BALKANGraph.com"><span style="color:#039BE5;font-family:Roboto,Roboto-Regular,Helvetica;font-weight:bold;">BALKAN</span><span style="color:#F57C00;font-family:Roboto,Roboto-Regular,Helvetica;">Graph</span></a>'
+    return '<a style="text-decoration: none;position:absolute;bottom:' + a + "px;left:" + a + 'px;" title="DiagramOrg" href="https://BALKANGraph.com"><span style="color:#039BE5;font-family:Roboto,Roboto-Regular,Helvetica;font-weight:bold;">Diagram</span><span style="color:#F57C00;font-family:Roboto,Roboto-Regular,Helvetica;">Org</span></a>'
 };
 BALKANGraph._aQ = function () {
     return Math.random()

@@ -10,7 +10,7 @@ namespace DiagramOrgApp.Controllers
 {
     public class DefaultController : Controller
     {
-        OrgChartDatabaseEntities entities = new OrgChartDatabaseEntities();
+        DozzierOCEntities entities = new DozzierOCEntities();
 
         public ActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace DiagramOrgApp.Controllers
 
         public JsonResult Read()
         {
-            var nodes = entities.OrgchartUsers.Select(p =>
+            var nodes = entities.OrgchartUser.Select(p =>
             new EmployeeNodeModel
             {
                 id = p.id,
@@ -36,13 +36,13 @@ namespace DiagramOrgApp.Controllers
             try
             {
                 
-                if (entities.OrgchartUsers.Find(model.id) == null)
+                if (entities.OrgchartUser.Find(model.id) == null)
                 {
                     AddNode(model);
                 }
                 else
                 {
-                    var node = entities.OrgchartUsers.Single(p => p.id == model.id);
+                    var node = entities.OrgchartUser.Single(p => p.id == model.id);
                     if (node != null)
                     {
                         node.name = model.name;
@@ -64,12 +64,12 @@ namespace DiagramOrgApp.Controllers
 
         public EmptyResult RemoveNode(int id)
         {
-            var node = entities.OrgchartUsers.First(p => p.id == id);
-            entities.OrgchartUsers.Remove(node);
+            var node = entities.OrgchartUser.First(p => p.id == id);
+            entities.OrgchartUser.Remove(node);
 
             int? parentId = node.pid;
 
-            var children = entities.OrgchartUsers.Where(p => p.pid == node.id);
+            var children = entities.OrgchartUser.Where(p => p.pid == node.id);
             foreach (var child in children)
             {
                 child.pid = node.pid;
@@ -93,7 +93,7 @@ namespace DiagramOrgApp.Controllers
             employee.pid = model.pid;
             employee.name = model.name;
             employee.title = model.title;
-            entities.OrgchartUsers.Add(employee);
+            entities.OrgchartUser.Add(employee);
             entities.SaveChanges();
 
             return Json(new { id = employee.id }, JsonRequestBehavior.AllowGet);

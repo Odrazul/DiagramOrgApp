@@ -1,0 +1,331 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrgChart</title>
+    <script src="~/Scripts/OrgChart.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+
+        .field_0 {
+            font-family: Impact;
+        }
+    </style>
+</head>
+<body>
+    <div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorio" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+                <select id="cmbUsers" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="name" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="title">Email:</label>
+                <input style="background-color:#FFCA28" width="200" id="title" value="" />
+            </div>
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="cancel">Cancelar</button>
+                <button style="width:108px;" id="save">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="deleteForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="name" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorio" class="form-control" width="200">
+                    <option value="0">BD</option>
+                    <option value="1">LDAP</option>
+                </select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Usuarios:</label>
+                <select id="cmbUsers" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="title">Cargo:</label>
+                <input style="background-color:#FFCA28" width="200" id="title" value="" />
+            </div>
+
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ab2a3e; display:inline-block;" for="title">Seguro que desea Eliminar el Elemento?:</label>
+
+            </div>
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="yes">Sí</button>
+                <button style="width:108px;" id="no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tree"></div>
+
+
+    <script>
+
+
+        var editForm = function () {
+            this.nodeId = null;
+        };
+
+        editForm.prototype.init = function (obj) {
+            var that = this;
+            this.obj = obj;
+            this.editForm = document.getElementById("editForm");
+            this.nameInput = document.getElementById("name");
+            this.titleInput = document.getElementById("title");
+            this.cancelButton = document.getElementById("cancel");
+            this.saveButton = document.getElementById("save");
+            this.deleteButton = document.getElementById("delete");
+
+            this.cancelButton.addEventListener("click", function () {
+                that.hide();
+            });
+
+            this.saveButton.addEventListener("click", function () {
+                var node = chart.get(that.nodeId);
+                node.name = $("#cmbUsers").val();
+                node.title = that.titleInput.value;
+
+                chart.updateNode(node);
+                guardarNodo(node);
+                that.hide();
+            });
+
+        };
+
+        editForm.prototype.show = function (nodeId) {
+            this.nodeId = nodeId;
+
+            var left = document.body.offsetWidth / 2 - 150;
+            this.editForm.style.display = "block";
+            this.editForm.style.left = left + "px";
+            var node = chart.get(nodeId);
+            this.nameInput.value = node.name;
+            this.titleInput.value = node.title;
+        };
+
+        editForm.prototype.hide = function (showldUpdateTheNode) {
+            this.editForm.style.display = "none";
+        };
+
+        var deleteForm = function () {
+            this.nodeId = null;
+        };
+
+        deleteForm.prototype.init = function (obj) {
+            var that = this;
+            this.obj = obj;
+            this.deleteForm = document.getElementById("deleteForm");
+            this.nameInput = document.getElementById("name");
+            this.titleInput = document.getElementById("title");
+            this.yesButton = document.getElementById("yes");
+            this.noButton = document.getElementById("no");
+
+            this.noButton.addEventListener("click", function () {
+                that.hide();
+            });
+
+            this.yesButton.addEventListener("click", function () {
+                var node = chart.get(that.nodeId);
+
+                node.title = that.titleInput.value;
+                borrarNodo(node);
+                chart.removeNode(that.nodeId);
+
+                that.hide();
+            });
+        };
+
+        deleteForm.prototype.show = function (nodeId, enable) {
+            this.nodeId = nodeId;
+
+            var left = document.body.offsetWidth / 2 - 150;
+            this.deleteForm.style.display = "block";
+            this.deleteForm.style.left = left + "px";
+            var node = chart.get(nodeId);
+            this.nameInput.value = node.name;
+            this.titleInput.value = node.title;
+        };
+
+        deleteForm.prototype.hide = function (showldRemoveTheNode) {
+            this.deleteForm.style.display = "none";
+        };
+
+        var chart;
+         $.get("@Url.Action("Read")").done(function (response) {
+            chart = new OrgChart(document.getElementById("tree"), {
+                nodeMenu: {
+                    details: { text: "Detalles" },
+                    edit: { text: "Editar" },
+                    addInGroup: { text: "Agregar Grupo" },
+                    add: { text: "Agregar Usuario" },
+                    remove: { text: "Eliminar" }
+                },
+                editUI: new editForm(),
+                nodeBinding: {
+                    field_0: "nombreUsuario",
+                    field_1: "loginUsuario",
+                    field_2: "nombreUsuario",
+                    field_3: "nombreUsuario",
+                    field_4: "emailUsuario"
+
+                },
+                removeUI: new deleteForm(),
+                nodeBinding: {
+                    field_0: "pk_Usuario",
+                    field_1: "fk_Directorio",
+                    field_2: "loginUsuario",
+                    field_3: "nombreUsuario",
+                    field_4: "emailUsuario"
+
+                },
+                nodes: response.nodes
+            });
+        });
+
+        function getDirectorios() {
+            $.ajax({
+                type: "POST",
+                url: "/Directorios/GetDirectorios",
+                success: function (result) {
+                    if (result.directorios) {
+                        $('#cmbDirectorio').append(
+                            $('<option></option>').val(0).html("Seleccione un Directorio")
+                        );
+                        result.directorios.forEach((item, index) => {
+                            $('#cmbDirectorio').append(
+                                $('<option></option>').val(item.pk_Directorio).html(item.nomDirectorio)
+                            );
+                            console.log(item);
+                        });
+                    }
+                    else {
+                        console.log("no se encontraron Directorios");
+                    }
+                }
+            });
+        }
+
+        function getAllUsers() {
+            $.ajax({
+                type: "POST",
+                url: "/Ldap/GetLDAPUsers",
+                success: function (result) {
+                    if (result) {
+                        $('#cmbUsers').append(
+                            $('<option></option>').val(0).html("Seleccione un Usuario")
+                        );
+                        result.forEach((item, index) => {
+                            $('#cmbUsers').append(
+                                $('<option></option>').val(item.UserName).html(item.Apellido + " " + item.PrimerNombre)
+                            );
+                            console.log(item);
+                        });
+                    } else {
+                        console.log("no se encontraron usuarios");
+                    }
+                }
+            });
+        }
+
+        function getAllDbUsers() {
+            $.ajax({
+                type: "POST",
+                url: "/Usuarios/GetDBUsers",
+                success: function (result) {
+                    if (result.nodes)
+                    {
+                        $('#cmbUsers').append(
+                            $('<option></option>').val(0).html("Seleccione un Usuario")
+                        );
+                        result.nodes.forEach((item, index) => {
+                            $('#cmbUsers').append(
+                                $('<option></option>').val(item.loginUsuario).html(item.nombreUsuario)
+                            );
+                            console.log(item);
+                        });
+                    }
+                    else
+                    {
+                        console.log("no se encontraron usuarios");
+                    }
+                }
+            });
+        }
+
+        function guardarNodo(node) {
+            if (isNaN(node.id)) {
+                node.id = 0;
+                node.pid = parseInt(node.pid);
+            }
+             $.post("@Url.Action("UpdateNode")", node)
+                .done(function () {
+                })
+            return false;
+        }
+
+       function borrarNodo(idnode) {
+           $.post("@Url.Action("RemoveNode")", idnode)
+                .done(function () {
+                })
+            return false;
+        }
+
+        $("#cmbDirectorio").change(() => {
+            $("#cmbUsers").empty();
+            if ($("#cmbDirectorio").val() == 1) {
+                getAllDbUsers();
+            }
+            if ($("#cmbDirectorio").val() == 2) {
+                getAllUsers();
+            }
+        })
+
+        function init() {
+            getDirectorios();
+            getAllDbUsers();
+        }
+
+        init();
+
+
+    </script>
+</body>
+</html>
+

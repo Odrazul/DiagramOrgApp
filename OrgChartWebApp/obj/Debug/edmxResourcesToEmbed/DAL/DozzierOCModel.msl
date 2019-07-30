@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrgChartDatabaseModelStoreContainer" CdmEntityContainer="DozzierOCEntities">
+    <EntitySetMapping Name="Directorio">
+      <EntityTypeMapping TypeName="DozzierOCModel.Directorio">
+        <MappingFragment StoreEntitySet="Directorio">
+          <ScalarProperty Name="cadenaConexion" ColumnName="cadenaConexion" />
+          <ScalarProperty Name="nomDirectorio" ColumnName="nomDirectorio" />
+          <ScalarProperty Name="pk_Directorio" ColumnName="pk_Directorio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Elemento">
+      <EntityTypeMapping TypeName="DozzierOCModel.Elemento">
+        <MappingFragment StoreEntitySet="Elemento">
+          <ScalarProperty Name="ak_ElementoPadre" ColumnName="ak_ElementoPadre" />
+          <ScalarProperty Name="nomElemento" ColumnName="nomElemento" />
+          <ScalarProperty Name="fk_Organizacion" ColumnName="fk_Organizacion" />
+          <ScalarProperty Name="fk_TipoElemento" ColumnName="fk_TipoElemento" />
+          <ScalarProperty Name="pk_Elemento" ColumnName="pk_Elemento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="DozzierOCModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funcion">
+      <EntityTypeMapping TypeName="DozzierOCModel.Funcion">
+        <MappingFragment StoreEntitySet="Funcion">
+          <ScalarProperty Name="rolPrincipal" ColumnName="rolPrincipal" />
+          <ScalarProperty Name="fk_Usuario" ColumnName="fk_Usuario" />
+          <ScalarProperty Name="fk_Puesto" ColumnName="fk_Puesto" />
+          <ScalarProperty Name="pk_Funcion" ColumnName="pk_Funcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizacion">
+      <EntityTypeMapping TypeName="DozzierOCModel.Organizacion">
+        <MappingFragment StoreEntitySet="Organizacion">
+          <ScalarProperty Name="nomOrganizacion" ColumnName="nomOrganizacion" />
+          <ScalarProperty Name="pk_Organizacion" ColumnName="pk_Organizacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgchartUser">
+      <EntityTypeMapping TypeName="DozzierOCModel.OrgchartUser">
+        <MappingFragment StoreEntitySet="OrgchartUser">
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoElemento">
+      <EntityTypeMapping TypeName="DozzierOCModel.TipoElemento">
+        <MappingFragment StoreEntitySet="TipoElemento">
+          <ScalarProperty Name="nomTipoElemento" ColumnName="nomTipoElemento" />
+          <ScalarProperty Name="pk_TipoElemento" ColumnName="pk_TipoElemento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="DozzierOCModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="emailUsuario" ColumnName="emailUsuario" />
+          <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+          <ScalarProperty Name="loginUsuario" ColumnName="loginUsuario" />
+          <ScalarProperty Name="fk_Directorio" ColumnName="fk_Directorio" />
+          <ScalarProperty Name="pk_Usuario" ColumnName="pk_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
