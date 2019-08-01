@@ -137,6 +137,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsMyOwnTools.js" />
     <Content Include="Scripts\orgchart.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -147,7 +148,9 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DiagramOrgController.cs" />
     <Compile Include="Controllers\DirectoriosController.cs" />
+    <Compile Include="Controllers\ElementosController.cs" />
     <Compile Include="Controllers\LdapController.cs" />
+    <Compile Include="Controllers\TipoElementosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="DAL\Directorio.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
@@ -255,7 +258,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Directorios\" />
+    <Folder Include="Views\Elementos\" />
     <Folder Include="Views\Ldap\" />
+    <Folder Include="Views\TipoElementos\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

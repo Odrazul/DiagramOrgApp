@@ -50,6 +50,9 @@ C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\vbc.exe.config
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\vbc.rsp
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\VBCSCompiler.exe
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\VBCSCompiler.exe.config
+C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.dll.config
+C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.dll
+C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.pdb
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\EntityFramework.dll
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\EntityFramework.SqlServer.dll
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\EntityLite.dll
@@ -74,8 +77,5 @@ C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Webpages.Razor.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Helpers.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Mvc.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csproj.CopyComplete
-C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.dll.config
-C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.dll
-C:\App\Github\NewOrgChart\OrgChartWebApp\bin\DiagramOrgApp.pdb
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.dll
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.pdb

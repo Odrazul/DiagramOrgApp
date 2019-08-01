@@ -21,15 +21,15 @@ namespace DiagramOrgApp.Controllers
 
             List<Directorio> list = db.Directorio.ToList();
 
-            var directorios = list.Select(L => new {
+            var lista = list.Select(L => new {
 
-                pk_Directorio = L.pk_Directorio,
-                nomDirectorio = L.nomDirectorio,
-                cadenaConexion = L.cadenaConexion
+                L.pk_Directorio,
+                L.nomDirectorio,
+                L.cadenaConexion
             });
 
 
-            return Json(new { directorios = directorios }, JsonRequestBehavior.AllowGet);
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Directorios

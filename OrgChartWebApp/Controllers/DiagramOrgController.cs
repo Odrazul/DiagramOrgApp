@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,82 +11,43 @@ namespace DiagramOrgApp.Controllers
     {
 
         DozzierOCEntities entities = new DozzierOCEntities();
+        DozzierOCEntities entities2 = new DozzierOCEntities();
 
         public ActionResult Vista()
         {
             return View();
         }
 
-     public JsonResult Read()
+        public JsonResult Read()
         {
-            //Codigo ilustrativo para consultar con linq varias tablas
-
-            //var usuarios = (from u in entities.Usuario
-            //               join e in entities.Elemento on u.pk_Usuario equals e.ak_ElementoPadre
-            //               join te in entities.TipoElemento on e.fk_TipoElemento equals te.pk_TipoElemento
-            //               where u.fk_Directorio == 1
-            //               select new EmployeeNodeModel
-            //               {
-            //                   id = u.pk_Usuario,
-            //                   name = u.nombreUsuario,
-            //                   title = te.nomTipoElemento
-            //               }).ToList();
-
-
-            List <EmployeeNodeModel > usuarios = new List<EmployeeNodeModel>();
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 1,
-                tags = new string[] { "Directors"},
-                name = "Billy Moore",
-                title = "CEO",             
-                img = "https://balkangraph.com/js/img/2.jpg",
-                pid = 3
-            });
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 2,
-                tags = new string[] { "Directors"},
-                name = "Bennie Shelto",
-                title = "Director",
-                img = "https://balkangraph.com/js/img/3.jpg",
-                pid = 3
-            });
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 3,
-                name = "Billie Ros",
-                title = "Dev Team Lead",
-                img = "https://balkangraph.com/js/img/5.jpg"
-            });
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 4,
-                tags = new string[] { "Devs" },
-                name = "Pedro Perez",
-                title = "Analista",
-                img = "https://balkangraph.com/js/img/3.jpg",
-                pid = 3
-            });
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 5,
-                tags = new string[] { "Devs" },
-                name = "Jaime Perez",
-                title = "Analista",
-                img = "https://balkangraph.com/js/img/3.jpg",
-                pid = 3
-            });
-            usuarios.Add(new EmployeeNodeModel()
-            {
-                id = 6,             
-                name = "Luisa Perez",
-                title = "Analista",
-                img = "https://balkangraph.com/js/img/3.jpg",
-                pid = 3
-            });
-
-            return Json(new { nodes = usuarios }, JsonRequestBehavior.AllowGet);
+    
+            var nodes = (from DIR in entities.Directorio
+                         join USU in entities.Usuario on DIR.pk_Directorio equals USU.fk_Directorio                                 
+                         join FUN in entities.Funcion on USU.pk_Usuario equals FUN.fk_Usuario
+                         join ELE in entities.Elemento on FUN.fk_Elemento equals ELE.pk_Elemento
+                         join TIP_ELE in entities.TipoElemento on ELE.fk_TipoElemento equals TIP_ELE.pk_TipoElemento
+                         from ELE_PAD in entities.Elemento .Where (ELE_PAD => ELE_PAD.pk_Elemento == ELE.ak_ElementoPadre).DefaultIfEmpty()
+                         from FUN_PAD in entities.Funcion .Where (FUN_PAD => FUN_PAD.fk_Elemento == ELE_PAD.pk_Elemento).DefaultIfEmpty()
+                         from USU_PAD in entities.Usuario .Where(USU_PAD => USU_PAD.pk_Usuario == FUN_PAD.fk_Usuario).DefaultIfEmpty()
+         
+                         select new NodoElementoModel
+                         {
+                            id = USU.pk_Usuario,
+                            fk_Directorio = USU.fk_Directorio,
+                            loginUsuario = USU.loginUsuario,
+                            nombreUsuario = USU.nombreUsuario,
+                            emailUsuario = USU.emailUsuario,
+                            pk_TipoElemento= TIP_ELE.pk_TipoElemento,
+                            nomTipoElemento = TIP_ELE.nomTipoElemento,
+                            pk_Elemento = ELE.pk_Elemento,
+                            elemento = ELE.nomElemento,
+                            pk_Directorio = DIR.pk_Directorio,
+                            nomDirectorio = DIR.nomDirectorio,
+                            pid =  ELE_PAD== null ? 0 : ELE_PAD.pk_Elemento,
+                            nombreUsuarioPadre = ELE_PAD == null ? "Huerfano" : USU_PAD.nombreUsuario 
+                        }).ToList();
+            
+                return Json(new { nodes = nodes }, JsonRequestBehavior.AllowGet);
         }
 
 

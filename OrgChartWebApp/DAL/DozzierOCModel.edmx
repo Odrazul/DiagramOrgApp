@@ -36,7 +36,7 @@
             <PropertyRef Name="pk_Funcion" />
           </Key>
           <Property Name="pk_Funcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fk_Puesto" Type="int" Nullable="false" />
+          <Property Name="fk_Elemento" Type="int" Nullable="false" />
           <Property Name="fk_Usuario" Type="int" Nullable="false" />
           <Property Name="rolPrincipal" Type="bit" Nullable="false" />
         </EntityType>
@@ -81,7 +81,7 @@
               <PropertyRef Name="pk_Elemento" />
             </Principal>
             <Dependent Role="Funcion">
-              <PropertyRef Name="fk_Puesto" />
+              <PropertyRef Name="fk_Elemento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -212,7 +212,7 @@
             <PropertyRef Name="pk_Funcion" />
           </Key>
           <Property Name="pk_Funcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fk_Puesto" Type="Int32" Nullable="false" />
+          <Property Name="fk_Elemento" Type="Int32" Nullable="false" />
           <Property Name="fk_Usuario" Type="Int32" Nullable="false" />
           <Property Name="rolPrincipal" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_Funcion_Elemento" FromRole="Funcion" ToRole="Elemento" />
@@ -261,7 +261,7 @@
               <PropertyRef Name="pk_Elemento" />
             </Principal>
             <Dependent Role="Funcion">
-              <PropertyRef Name="fk_Puesto" />
+              <PropertyRef Name="fk_Elemento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -341,7 +341,7 @@
               <MappingFragment StoreEntitySet="Funcion">
                 <ScalarProperty Name="rolPrincipal" ColumnName="rolPrincipal" />
                 <ScalarProperty Name="fk_Usuario" ColumnName="fk_Usuario" />
-                <ScalarProperty Name="fk_Puesto" ColumnName="fk_Puesto" />
+                <ScalarProperty Name="fk_Elemento" ColumnName="fk_Elemento" />
                 <ScalarProperty Name="pk_Funcion" ColumnName="pk_Funcion" />
               </MappingFragment>
             </EntityTypeMapping>

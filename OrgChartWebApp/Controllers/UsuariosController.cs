@@ -19,7 +19,7 @@ namespace DiagramOrgApp.Controllers
 
             List<Usuario> list = db.Usuario.ToList();
 
-            var nodes = list.Select(L => new {
+            var lista = list.Select(L => new {
                 L.pk_Usuario,
                 L.fk_Directorio,
                 L.loginUsuario,
@@ -28,7 +28,22 @@ namespace DiagramOrgApp.Controllers
             });
 
                  
-            return Json(new { nodes = nodes }, JsonRequestBehavior.AllowGet);
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getUsuarioxId(int Id)
+        {
+            List<Usuario> list = db.Usuario.Where(T => T.pk_Usuario == Id).ToList();
+
+            var lista = list.Select(L => new {
+                L.pk_Usuario,
+                L.fk_Directorio,
+                L.loginUsuario,
+                L.nombreUsuario,
+                L.emailUsuario
+            });
+          
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Usuarios

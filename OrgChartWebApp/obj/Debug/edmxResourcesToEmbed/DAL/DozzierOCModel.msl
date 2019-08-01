@@ -35,7 +35,7 @@
         <MappingFragment StoreEntitySet="Funcion">
           <ScalarProperty Name="rolPrincipal" ColumnName="rolPrincipal" />
           <ScalarProperty Name="fk_Usuario" ColumnName="fk_Usuario" />
-          <ScalarProperty Name="fk_Puesto" ColumnName="fk_Puesto" />
+          <ScalarProperty Name="fk_Elemento" ColumnName="fk_Elemento" />
           <ScalarProperty Name="pk_Funcion" ColumnName="pk_Funcion" />
         </MappingFragment>
       </EntityTypeMapping>

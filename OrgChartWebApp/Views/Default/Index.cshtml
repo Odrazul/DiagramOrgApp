@@ -220,11 +220,11 @@
                 type: "POST",
                 url: "/Directorios/GetDirectorios",
                 success: function (result) {
-                    if (result.directorios) {
+                    if (result.lista) {
                         $('#cmbDirectorio').append(
                             $('<option></option>').val(0).html("Seleccione un Directorio")
                         );
-                        result.directorios.forEach((item, index) => {
+                        result.lista.forEach((item, index) => {
                             $('#cmbDirectorio').append(
                                 $('<option></option>').val(item.pk_Directorio).html(item.nomDirectorio)
                             );
@@ -265,12 +265,12 @@
                 type: "POST",
                 url: "/Usuarios/GetDBUsers",
                 success: function (result) {
-                    if (result.nodes)
+                    if (result.lista)
                     {
                         $('#cmbUsers').append(
                             $('<option></option>').val(0).html("Seleccione un Usuario")
                         );
-                        result.nodes.forEach((item, index) => {
+                        result.lista.forEach((item, index) => {
                             $('#cmbUsers').append(
                                 $('<option></option>').val(item.loginUsuario).html(item.nombreUsuario)
                             );

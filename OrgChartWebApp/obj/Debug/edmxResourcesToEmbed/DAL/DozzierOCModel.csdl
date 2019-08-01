@@ -61,7 +61,7 @@
       <PropertyRef Name="pk_Funcion" />
     </Key>
     <Property Name="pk_Funcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="fk_Puesto" Type="Int32" Nullable="false" />
+    <Property Name="fk_Elemento" Type="Int32" Nullable="false" />
     <Property Name="fk_Usuario" Type="Int32" Nullable="false" />
     <Property Name="rolPrincipal" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_Funcion_Elemento" FromRole="Funcion" ToRole="Elemento" />
@@ -110,7 +110,7 @@
         <PropertyRef Name="pk_Elemento" />
       </Principal>
       <Dependent Role="Funcion">
-        <PropertyRef Name="fk_Puesto" />
+        <PropertyRef Name="fk_Elemento" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -15,7 +15,7 @@ namespace DiagramOrgApp.DAL
     public partial class Funcion
     {
         public int pk_Funcion { get; set; }
-        public int fk_Puesto { get; set; }
+        public int fk_Elemento { get; set; }
         public int fk_Usuario { get; set; }
         public bool rolPrincipal { get; set; }
     
