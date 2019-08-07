@@ -25,7 +25,9 @@ namespace DiagramOrgApp.Controllers
 
                 L.pk_Directorio,
                 L.nomDirectorio,
-                L.cadenaConexion
+                L.cadenaConexion,
+                L.usuarioConexion,
+                L.claveConexion
             });
 
 
@@ -64,7 +66,7 @@ namespace DiagramOrgApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pk_Directorio,nomDirectorio,cadenaConexion")] Directorio directorio)
+        public ActionResult Create([Bind(Include = "pk_Directorio,nomDirectorio,cadenaConexion,usuarioConexion,claveConexion")] Directorio directorio)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +98,7 @@ namespace DiagramOrgApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pk_Directorio,nomDirectorio,cadenaConexion")] Directorio directorio)
+        public ActionResult Edit([Bind(Include = "pk_Directorio,nomDirectorio,cadenaConexion,usuarioConexion,claveConexion")] Directorio directorio)
         {
             if (ModelState.IsValid)
             {

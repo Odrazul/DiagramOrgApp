@@ -5,11 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DiagramOrgApp.Models;
-
+using DiagramOrgApp.DAL;
 namespace DiagramOrgApp.Controllers
 {
     public class LdapController : Controller
     {
+        private DozzierOCEntities db = new DozzierOCEntities();
+
         [HttpPost]
         public JsonResult ValidateLdapUser(string user)
         {
@@ -38,6 +40,42 @@ namespace DiagramOrgApp.Controllers
                 return Json(userExists, JsonRequestBehavior.AllowGet);
             }
             return Json(userExists, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetLDAPUsersxId(int IdDirectorio)
+        {                  
+            List<LdapUsers> listaUsuarios = new List<LdapUsers>();
+            try
+            {                
+                Directorio directorio = db.Directorio.Find(IdDirectorio);
+                string Server = directorio.cadenaConexion;
+                string User = directorio.usuarioConexion;
+                string Password = directorio.claveConexion;
+                
+                DirectoryEntry dEntry = new DirectoryEntry(Server, User, Password, AuthenticationTypes.ServerBind);
+                DirectorySearcher dSearcher = new DirectorySearcher(dEntry);
+                //dSearcher.Filter = criterios;
+                foreach (SearchResult result in dSearcher.FindAll())
+                {
+                    DirectoryEntry de = result.GetDirectoryEntry() as DirectoryEntry;
+                    listaUsuarios.Add(new LdapUsers()
+                    {
+                        Apellido = de.Properties["ou"].Value.ToString(),
+                        PrimerNombre = de.Properties["ou"].Value.ToString(),
+                        PrincipalName = de.Properties["cn"].Value.ToString(),
+                        UserName = de.Properties["cn"].Value.ToString()
+                    });
+                }
+
+                dEntry.Dispose();
+                dSearcher.Dispose();
+            }
+            catch (Exception ex)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            return Json(listaUsuarios, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

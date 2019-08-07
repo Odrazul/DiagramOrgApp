@@ -1,39 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DozzierOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="DozzierOCEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Directorio" EntityType="DozzierOCModel.Directorio" />
-    <EntitySet Name="Elemento" EntityType="DozzierOCModel.Elemento" />
-    <EntitySet Name="Employees" EntityType="DozzierOCModel.Employees" />
-    <EntitySet Name="Funcion" EntityType="DozzierOCModel.Funcion" />
-    <EntitySet Name="Organizacion" EntityType="DozzierOCModel.Organizacion" />
-    <EntitySet Name="OrgchartUser" EntityType="DozzierOCModel.OrgchartUser" />
-    <EntitySet Name="TipoElemento" EntityType="DozzierOCModel.TipoElemento" />
-    <EntitySet Name="Usuario" EntityType="DozzierOCModel.Usuario" />
-    <AssociationSet Name="FK_Funcion_Elemento" Association="DozzierOCModel.FK_Funcion_Elemento">
-      <End Role="Elemento" EntitySet="Elemento" />
-      <End Role="Funcion" EntitySet="Funcion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MSTDepartamento_MSTOrganizacion" Association="DozzierOCModel.FK_MSTDepartamento_MSTOrganizacion">
-      <End Role="Organizacion" EntitySet="Organizacion" />
-      <End Role="Elemento" EntitySet="Elemento" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MSTElemento_TipoElemento" Association="DozzierOCModel.FK_MSTElemento_TipoElemento">
-      <End Role="TipoElemento" EntitySet="TipoElemento" />
-      <End Role="Elemento" EntitySet="Elemento" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Usuario_Directorio" Association="DozzierOCModel.FK_Usuario_Directorio">
-      <End Role="Directorio" EntitySet="Directorio" />
-      <End Role="Usuario" EntitySet="Usuario" />
-    </AssociationSet>
-  </EntityContainer>
+  <EntityType Name="Dependencia">
+    <Key>
+      <PropertyRef Name="pk_Dependencia" />
+    </Key>
+    <Property Name="pk_Dependencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomDependencia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Dependencia_Usuario" FromRole="Dependencia" ToRole="Usuario" />
+  </EntityType>
   <EntityType Name="Directorio">
     <Key>
       <PropertyRef Name="pk_Directorio" />
     </Key>
     <Property Name="pk_Directorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nomDirectorio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="cadenaConexion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Usuario" Relationship="DozzierOCModel.FK_Usuario_Directorio" FromRole="Directorio" ToRole="Usuario" />
+    <Property Name="nomDirectorio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cadenaConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="usuarioConexion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="claveConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Directorio_Usuario" FromRole="Directorio" ToRole="Usuario" />
   </EntityType>
   <EntityType Name="Elemento">
     <Key>
@@ -42,11 +26,10 @@
     <Property Name="pk_Elemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="fk_TipoElemento" Type="Int32" Nullable="false" />
     <Property Name="fk_Organizacion" Type="Int32" Nullable="false" />
-    <Property Name="nomElemento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ak_ElementoPadre" Type="Int32" />
-    <NavigationProperty Name="Funcion" Relationship="DozzierOCModel.FK_Funcion_Elemento" FromRole="Elemento" ToRole="Funcion" />
-    <NavigationProperty Name="Organizacion" Relationship="DozzierOCModel.FK_MSTDepartamento_MSTOrganizacion" FromRole="Elemento" ToRole="Organizacion" />
-    <NavigationProperty Name="TipoElemento" Relationship="DozzierOCModel.FK_MSTElemento_TipoElemento" FromRole="Elemento" ToRole="TipoElemento" />
+    <Property Name="nomElemento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Funcion" Relationship="Self.FK_Funcion_Elemento" FromRole="Elemento" ToRole="Funcion" />
+    <NavigationProperty Name="Organizacion" Relationship="DozzierOCModel.FK_Organizacion_Elemento" FromRole="Elemento" ToRole="Organizacion" />
+    <NavigationProperty Name="TipoElemento" Relationship="DozzierOCModel.FK_TipoElemento_Elemento" FromRole="Elemento" ToRole="TipoElemento" />
   </EntityType>
   <EntityType Name="Employees">
     <Key>
@@ -54,7 +37,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ReportsTo" Type="Int32" />
-    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityType Name="Funcion">
     <Key>
@@ -64,15 +47,17 @@
     <Property Name="fk_Elemento" Type="Int32" Nullable="false" />
     <Property Name="fk_Usuario" Type="Int32" Nullable="false" />
     <Property Name="rolPrincipal" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_Funcion_Elemento" FromRole="Funcion" ToRole="Elemento" />
+    <Property Name="ak_NodoPadre" Type="Int32" />
+    <NavigationProperty Name="Elemento" Relationship="Self.FK_Funcion_Elemento" FromRole="Funcion" ToRole="Elemento" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Funcion" FromRole="Funcion" ToRole="Usuario" />
   </EntityType>
   <EntityType Name="Organizacion">
     <Key>
       <PropertyRef Name="pk_Organizacion" />
     </Key>
     <Property Name="pk_Organizacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nomOrganizacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_MSTDepartamento_MSTOrganizacion" FromRole="Organizacion" ToRole="Elemento" />
+    <Property Name="nomOrganizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_Organizacion_Elemento" FromRole="Organizacion" ToRole="Elemento" />
   </EntityType>
   <EntityType Name="OrgchartUser">
     <Key>
@@ -80,7 +65,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="pid" Type="Int32" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TipoElemento">
@@ -88,59 +73,51 @@
       <PropertyRef Name="pk_TipoElemento" />
     </Key>
     <Property Name="pk_TipoElemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nomTipoElemento" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_MSTElemento_TipoElemento" FromRole="TipoElemento" ToRole="Elemento" />
+    <Property Name="nomTipoElemento" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Elemento" Relationship="DozzierOCModel.FK_TipoElemento_Elemento" FromRole="TipoElemento" ToRole="Elemento" />
+  </EntityType>
+  <EntityType Name="TipoIdentificacion">
+    <Key>
+      <PropertyRef Name="pk_TipoIdentificacion" />
+    </Key>
+    <Property Name="pk_TipoIdentificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomTipoIdentificacion" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_TipoIdentificacion_Usuario" FromRole="TipoIdentificacion" ToRole="Usuario" />
   </EntityType>
   <EntityType Name="Usuario">
     <Key>
       <PropertyRef Name="pk_Usuario" />
     </Key>
     <Property Name="pk_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="fk_Directorio" Type="Int32" />
-    <Property Name="loginUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="nombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="loginUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="emailUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Directorio" Relationship="DozzierOCModel.FK_Usuario_Directorio" FromRole="Usuario" ToRole="Directorio" />
+    <Property Name="fk_Directorio" Type="Int32" Nullable="false" />
+    <Property Name="fk_Dependencia" Type="Int32" Nullable="false" />
+    <Property Name="fk_TipoIdentificacion" Type="Int32" Nullable="false" />
+    <Property Name="numIdentificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Dependencia" Relationship="Self.FK_Dependencia_Usuario" FromRole="Usuario" ToRole="Dependencia" />
+    <NavigationProperty Name="Directorio" Relationship="Self.FK_Directorio_Usuario" FromRole="Usuario" ToRole="Directorio" />
+    <NavigationProperty Name="Funcion" Relationship="Self.FK_Usuario_Funcion" FromRole="Usuario" ToRole="Funcion" />
+    <NavigationProperty Name="TipoIdentificacion" Relationship="Self.FK_TipoIdentificacion_Usuario" FromRole="Usuario" ToRole="TipoIdentificacion" />
   </EntityType>
-  <Association Name="FK_Funcion_Elemento">
-    <End Type="DozzierOCModel.Elemento" Role="Elemento" Multiplicity="1" />
-    <End Type="DozzierOCModel.Funcion" Role="Funcion" Multiplicity="*" />
+  <Association Name="FK_Dependencia_Usuario">
+    <End Role="Dependencia" Type="Self.Dependencia" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Elemento">
-        <PropertyRef Name="pk_Elemento" />
+      <Principal Role="Dependencia">
+        <PropertyRef Name="pk_Dependencia" />
       </Principal>
-      <Dependent Role="Funcion">
-        <PropertyRef Name="fk_Elemento" />
+      <Dependent Role="Usuario">
+        <PropertyRef Name="fk_Dependencia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MSTDepartamento_MSTOrganizacion">
-    <End Type="DozzierOCModel.Organizacion" Role="Organizacion" Multiplicity="1" />
-    <End Type="DozzierOCModel.Elemento" Role="Elemento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Organizacion">
-        <PropertyRef Name="pk_Organizacion" />
-      </Principal>
-      <Dependent Role="Elemento">
-        <PropertyRef Name="fk_Organizacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MSTElemento_TipoElemento">
-    <End Type="DozzierOCModel.TipoElemento" Role="TipoElemento" Multiplicity="1" />
-    <End Type="DozzierOCModel.Elemento" Role="Elemento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TipoElemento">
-        <PropertyRef Name="pk_TipoElemento" />
-      </Principal>
-      <Dependent Role="Elemento">
-        <PropertyRef Name="fk_TipoElemento" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Usuario_Directorio">
-    <End Type="DozzierOCModel.Directorio" Role="Directorio" Multiplicity="0..1" />
-    <End Type="DozzierOCModel.Usuario" Role="Usuario" Multiplicity="*" />
+  <Association Name="FK_Directorio_Usuario">
+    <End Role="Directorio" Type="Self.Directorio" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Directorio">
         <PropertyRef Name="pk_Directorio" />
@@ -150,4 +127,104 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Funcion_Elemento">
+    <End Role="Elemento" Type="Self.Elemento" Multiplicity="1" />
+    <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Elemento">
+        <PropertyRef Name="pk_Elemento" />
+      </Principal>
+      <Dependent Role="Funcion">
+        <PropertyRef Name="fk_Elemento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organizacion_Elemento">
+    <End Role="Organizacion" Type="Self.Organizacion" Multiplicity="1" />
+    <End Role="Elemento" Type="Self.Elemento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organizacion">
+        <PropertyRef Name="pk_Organizacion" />
+      </Principal>
+      <Dependent Role="Elemento">
+        <PropertyRef Name="fk_Organizacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TipoElemento_Elemento">
+    <End Role="TipoElemento" Type="Self.TipoElemento" Multiplicity="1" />
+    <End Role="Elemento" Type="Self.Elemento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoElemento">
+        <PropertyRef Name="pk_TipoElemento" />
+      </Principal>
+      <Dependent Role="Elemento">
+        <PropertyRef Name="fk_TipoElemento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Funcion">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="pk_Usuario" />
+      </Principal>
+      <Dependent Role="Funcion">
+        <PropertyRef Name="fk_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TipoIdentificacion_Usuario">
+    <End Role="TipoIdentificacion" Type="Self.TipoIdentificacion" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIdentificacion">
+        <PropertyRef Name="pk_TipoIdentificacion" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="fk_TipoIdentificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DozzierOCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Dependencia" EntityType="Self.Dependencia" />
+    <EntitySet Name="Directorio" EntityType="Self.Directorio" />
+    <EntitySet Name="Elemento" EntityType="Self.Elemento" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" />
+    <EntitySet Name="Funcion" EntityType="Self.Funcion" />
+    <EntitySet Name="Organizacion" EntityType="Self.Organizacion" />
+    <EntitySet Name="OrgchartUser" EntityType="Self.OrgchartUser" />
+    <EntitySet Name="TipoElemento" EntityType="Self.TipoElemento" />
+    <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_Dependencia_Usuario" Association="Self.FK_Dependencia_Usuario">
+      <End Role="Dependencia" EntitySet="Dependencia" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Directorio_Usuario" Association="Self.FK_Directorio_Usuario">
+      <End Role="Directorio" EntitySet="Directorio" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcion_Elemento" Association="Self.FK_Funcion_Elemento">
+      <End Role="Elemento" EntitySet="Elemento" />
+      <End Role="Funcion" EntitySet="Funcion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MSTDepartamento_MSTOrganizacion" Association="DozzierOCModel.FK_Organizacion_Elemento">
+      <End Role="Organizacion" EntitySet="Organizacion" />
+      <End Role="Elemento" EntitySet="Elemento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MSTElemento_TipoElemento" Association="DozzierOCModel.FK_TipoElemento_Elemento">
+      <End Role="TipoElemento" EntitySet="TipoElemento" />
+      <End Role="Elemento" EntitySet="Elemento" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Funcion" Association="Self.FK_Usuario_Funcion">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Funcion" EntitySet="Funcion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TipoIdentificacion_Usuario" Association="Self.FK_TipoIdentificacion_Usuario">
+      <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

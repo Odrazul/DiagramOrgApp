@@ -21,10 +21,16 @@ namespace DiagramOrgApp.Controllers
 
             var lista = list.Select(L => new {
                 L.pk_Usuario,
-                L.fk_Directorio,
                 L.loginUsuario,
                 L.nombreUsuario,
-                L.emailUsuario
+                L.emailUsuario,
+                L.fk_Directorio,
+                L.fk_Dependencia,
+                L.fk_TipoIdentificacion,
+                L.numIdentificacion,
+                L.bloqueado,
+                L.activo
+
             });
 
                  
@@ -37,10 +43,15 @@ namespace DiagramOrgApp.Controllers
 
             var lista = list.Select(L => new {
                 L.pk_Usuario,
-                L.fk_Directorio,
                 L.loginUsuario,
                 L.nombreUsuario,
-                L.emailUsuario
+                L.emailUsuario,
+                L.fk_Directorio,
+                L.fk_Dependencia,
+                L.fk_TipoIdentificacion,
+                L.numIdentificacion,
+                L.bloqueado,
+                L.activo
             });
           
             return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);

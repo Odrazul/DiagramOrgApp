@@ -14,12 +14,27 @@ namespace DiagramOrgApp.DAL
     
     public partial class Usuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuario()
+        {
+            this.Funcion = new HashSet<Funcion>();
+        }
+    
         public int pk_Usuario { get; set; }
-        public int fk_Directorio { get; set; }
         public string loginUsuario { get; set; }
         public string nombreUsuario { get; set; }
         public string emailUsuario { get; set; }
+        public int fk_Directorio { get; set; }
+        public int fk_Dependencia { get; set; }
+        public int fk_TipoIdentificacion { get; set; }
+        public string numIdentificacion { get; set; }
+        public bool bloqueado { get; set; }
+        public bool activo { get; set; }
     
+        public virtual Dependencia Dependencia { get; set; }
         public virtual Directorio Directorio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Funcion> Funcion { get; set; }
+        public virtual TipoIdentificacion TipoIdentificacion { get; set; }
     }
 }

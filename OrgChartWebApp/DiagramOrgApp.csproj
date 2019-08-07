@@ -110,24 +110,26 @@
     </Content>
     <Content Include="DAL\DozzierOCModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DozzierOCModel.Context.cs</LastGenOutput>
       <DependentUpon>DozzierOCModel.edmx</DependentUpon>
+      <LastGenOutput>DozzierOCModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="DAL\DozzierOCModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
       <LastGenOutput>DozzierOCModel.cs</LastGenOutput>
-      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="DAL\OrgChartModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
-      <LastGenOutput>OrgChartModel.cs</LastGenOutput>
     </Content>
     <Content Include="DataLayer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataLayer.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
+    <EntityDeploy Include="DAL\DozzierOCModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DozzierOCModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\DozzierOCModel.edmx.diagram">
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -146,12 +148,17 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\DependenciasController.cs" />
     <Compile Include="Controllers\DiagramOrgController.cs" />
     <Compile Include="Controllers\DirectoriosController.cs" />
     <Compile Include="Controllers\ElementosController.cs" />
     <Compile Include="Controllers\LdapController.cs" />
     <Compile Include="Controllers\TipoElementosController.cs" />
+    <Compile Include="Controllers\TipoIdentificacionesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="DAL\Dependencia.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Directorio.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
@@ -165,6 +172,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\DozzierOCModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Elemento.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
@@ -177,20 +189,13 @@
     <Compile Include="DAL\Organizacion.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\OrgChartModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OrgChartModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\DozzierOCModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DAL\OrgchartUser.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\TipoElemento.cs">
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TipoIdentificacion.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Usuario.cs">
@@ -213,13 +218,6 @@
   <ItemGroup>
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
-    </Content>
-    <EntityDeploy Include="DAL\DozzierOCModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DozzierOCModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAL\DozzierOCModel.edmx.diagram">
-      <DependentUpon>DozzierOCModel.edmx</DependentUpon>
     </Content>
     <Content Include="EntityLite.ttinclude\TypeScriptAttributeGeneration.ttinclude" />
     <Content Include="EntityLite.ttinclude\TextTransform.ttinclude" />
@@ -257,10 +255,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Dependencias\" />
     <Folder Include="Views\Directorios\" />
     <Folder Include="Views\Elementos\" />
     <Folder Include="Views\Ldap\" />
     <Folder Include="Views\TipoElementos\" />
+    <Folder Include="Views\TipoIdentificaciones\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -284,7 +284,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56639</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56639/</IISUrl>
+          <IISUrl>http://localhost:56639/DiagramOrg</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

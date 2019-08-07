@@ -25,6 +25,7 @@ namespace DiagramOrgApp.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Dependencia> Dependencia { get; set; }
         public virtual DbSet<Directorio> Directorio { get; set; }
         public virtual DbSet<Elemento> Elemento { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
@@ -32,6 +33,7 @@ namespace DiagramOrgApp.DAL
         public virtual DbSet<Organizacion> Organizacion { get; set; }
         public virtual DbSet<OrgchartUser> OrgchartUser { get; set; }
         public virtual DbSet<TipoElemento> TipoElemento { get; set; }
+        public virtual DbSet<TipoIdentificacion> TipoIdentificacion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

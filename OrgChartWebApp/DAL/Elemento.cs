@@ -24,7 +24,6 @@ namespace DiagramOrgApp.DAL
         public int fk_TipoElemento { get; set; }
         public int fk_Organizacion { get; set; }
         public string nomElemento { get; set; }
-        public Nullable<int> ak_ElementoPadre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Funcion> Funcion { get; set; }

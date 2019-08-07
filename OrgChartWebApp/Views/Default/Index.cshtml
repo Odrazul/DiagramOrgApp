@@ -124,7 +124,7 @@
                 var node = chart.get(that.nodeId);
                 //node.name = that.nameInput.value;
                 node.name = $("#cmbUsers").val();
-                node.title = that.titleInput.value;
+                node.title =  that.titleInput.value;
 
                 chart.updateNode(node);
                 guardarNodo(node);
@@ -218,7 +218,7 @@
         function getDirectorios() {
             $.ajax({
                 type: "POST",
-                url: "/Directorios/GetDirectorios",
+                url: "/DiagramOrg/Directorios/GetDirectorios",
                 success: function (result) {
                     if (result.lista) {
                         $('#cmbDirectorio').append(
@@ -241,7 +241,7 @@
         function getAllUsers() {
             $.ajax({
                 type: "POST",
-                url: "/Ldap/GetLDAPUsers",
+                url: "/DiagramOrg/Ldap/GetLDAPUsers",
                 success: function (result) {
                     if (result) {
                         $('#cmbUsers').append(
@@ -263,7 +263,7 @@
         function getAllDbUsers() {
             $.ajax({
                 type: "POST",
-                url: "/Usuarios/GetDBUsers",
+                url: "/DiagramOrg/Usuarios/GetDBUsers",
                 success: function (result) {
                     if (result.lista)
                     {

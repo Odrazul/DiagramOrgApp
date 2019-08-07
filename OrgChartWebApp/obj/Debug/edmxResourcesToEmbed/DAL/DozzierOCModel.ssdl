@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="OrgChartDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DozzierOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Dependencia">
+    <Key>
+      <PropertyRef Name="pk_Dependencia" />
+    </Key>
+    <Property Name="pk_Dependencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomDependencia" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
   <EntityType Name="Directorio">
     <Key>
       <PropertyRef Name="pk_Directorio" />
@@ -7,6 +14,8 @@
     <Property Name="pk_Directorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nomDirectorio" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="cadenaConexion" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="usuarioConexion" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="claveConexion" Type="nvarchar" MaxLength="250" Nullable="false" />
   </EntityType>
   <EntityType Name="Elemento">
     <Key>
@@ -16,7 +25,6 @@
     <Property Name="fk_TipoElemento" Type="int" Nullable="false" />
     <Property Name="fk_Organizacion" Type="int" Nullable="false" />
     <Property Name="nomElemento" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ak_ElementoPadre" Type="int" />
   </EntityType>
   <EntityType Name="Employees">
     <Key>
@@ -34,6 +42,7 @@
     <Property Name="fk_Elemento" Type="int" Nullable="false" />
     <Property Name="fk_Usuario" Type="int" Nullable="false" />
     <Property Name="rolPrincipal" Type="bit" Nullable="false" />
+    <Property Name="ak_NodoPadre" Type="int" />
   </EntityType>
   <EntityType Name="Organizacion">
     <Key>
@@ -58,16 +67,52 @@
     <Property Name="pk_TipoElemento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nomTipoElemento" Type="nvarchar" MaxLength="30" Nullable="false" />
   </EntityType>
+  <EntityType Name="TipoIdentificacion">
+    <Key>
+      <PropertyRef Name="pk_TipoIdentificacion" />
+    </Key>
+    <Property Name="pk_TipoIdentificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nomTipoIdentificacion" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
   <EntityType Name="Usuario">
     <Key>
       <PropertyRef Name="pk_Usuario" />
     </Key>
     <Property Name="pk_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fk_Directorio" Type="int" />
     <Property Name="loginUsuario" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="nombreUsuario" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="emailUsuario" Type="nvarchar" MaxLength="50" />
+    <Property Name="fk_Directorio" Type="int" Nullable="false" />
+    <Property Name="fk_Dependencia" Type="int" Nullable="false" />
+    <Property Name="fk_TipoIdentificacion" Type="int" Nullable="false" />
+    <Property Name="numIdentificacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Dependencia_Usuario">
+    <End Role="Dependencia" Type="Self.Dependencia" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dependencia">
+        <PropertyRef Name="pk_Dependencia" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="fk_Dependencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Directorio_Usuario">
+    <End Role="Directorio" Type="Self.Directorio" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Directorio">
+        <PropertyRef Name="pk_Directorio" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="fk_Directorio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Funcion_Elemento">
     <End Role="Elemento" Type="Self.Elemento" Multiplicity="1" />
     <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
@@ -80,7 +125,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MSTDepartamento_MSTOrganizacion">
+  <Association Name="FK_Organizacion_Elemento">
     <End Role="Organizacion" Type="Self.Organizacion" Multiplicity="1" />
     <End Role="Elemento" Type="Self.Elemento" Multiplicity="*" />
     <ReferentialConstraint>
@@ -92,7 +137,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MSTElemento_TipoElemento">
+  <Association Name="FK_TipoElemento_Elemento">
     <End Role="TipoElemento" Type="Self.TipoElemento" Multiplicity="1" />
     <End Role="Elemento" Type="Self.Elemento" Multiplicity="*" />
     <ReferentialConstraint>
@@ -104,19 +149,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Usuario_Directorio">
-    <End Role="Directorio" Type="Self.Directorio" Multiplicity="0..1" />
+  <Association Name="FK_TipoIdentificacion_Usuario">
+    <End Role="TipoIdentificacion" Type="Self.TipoIdentificacion" Multiplicity="1" />
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Directorio">
-        <PropertyRef Name="pk_Directorio" />
+      <Principal Role="TipoIdentificacion">
+        <PropertyRef Name="pk_TipoIdentificacion" />
       </Principal>
       <Dependent Role="Usuario">
-        <PropertyRef Name="fk_Directorio" />
+        <PropertyRef Name="fk_TipoIdentificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="OrgChartDatabaseModelStoreContainer">
+  <Association Name="FK_Usuario_Funcion">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="pk_Usuario" />
+      </Principal>
+      <Dependent Role="Funcion">
+        <PropertyRef Name="fk_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DozzierOCModelStoreContainer">
+    <EntitySet Name="Dependencia" EntityType="Self.Dependencia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Directorio" EntityType="Self.Directorio" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Elemento" EntityType="Self.Elemento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
@@ -124,22 +182,35 @@
     <EntitySet Name="Organizacion" EntityType="Self.Organizacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrgchartUser" EntityType="Self.OrgchartUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoElemento" EntityType="Self.TipoElemento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Dependencia_Usuario" Association="Self.FK_Dependencia_Usuario">
+      <End Role="Dependencia" EntitySet="Dependencia" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Directorio_Usuario" Association="Self.FK_Directorio_Usuario">
+      <End Role="Directorio" EntitySet="Directorio" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
     <AssociationSet Name="FK_Funcion_Elemento" Association="Self.FK_Funcion_Elemento">
       <End Role="Elemento" EntitySet="Elemento" />
       <End Role="Funcion" EntitySet="Funcion" />
     </AssociationSet>
-    <AssociationSet Name="FK_MSTDepartamento_MSTOrganizacion" Association="Self.FK_MSTDepartamento_MSTOrganizacion">
+    <AssociationSet Name="FK_Organizacion_Elemento" Association="Self.FK_Organizacion_Elemento">
       <End Role="Organizacion" EntitySet="Organizacion" />
       <End Role="Elemento" EntitySet="Elemento" />
     </AssociationSet>
-    <AssociationSet Name="FK_MSTElemento_TipoElemento" Association="Self.FK_MSTElemento_TipoElemento">
+    <AssociationSet Name="FK_TipoElemento_Elemento" Association="Self.FK_TipoElemento_Elemento">
       <End Role="TipoElemento" EntitySet="TipoElemento" />
       <End Role="Elemento" EntitySet="Elemento" />
     </AssociationSet>
-    <AssociationSet Name="FK_Usuario_Directorio" Association="Self.FK_Usuario_Directorio">
-      <End Role="Directorio" EntitySet="Directorio" />
+    <AssociationSet Name="FK_TipoIdentificacion_Usuario" Association="Self.FK_TipoIdentificacion_Usuario">
+      <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
       <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Funcion" Association="Self.FK_Usuario_Funcion">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Funcion" EntitySet="Funcion" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -95,6 +95,7 @@ var OrgChart = function (b, a) {
         scaleMax: 5,
         orderBy: null,
         editUI: null,
+        detailUI: null,
         removeUI: null,
         searchUI: null,
         xScrollUI: null,
@@ -171,6 +172,17 @@ var OrgChart = function (b, a) {
     if (this.server === null) {
         this.server = new OrgChart.server(this.config)
     }
+
+    if (!this.config.detailUI) {
+        this.detailUI = new OrgChart.detailUI()
+    } else {
+        this.detailUI = this.config.detailUI
+    }
+    this.detailUI.init(this);
+    if (this.server === null) {
+        this.server = new OrgChart.server(this.config)
+    }
+
     if (!this.config.searchUI) {
         this.searchUI = new OrgChart.searchUI()
     } else {
@@ -1010,6 +1022,7 @@ OrgChart.prototype._an = function (k, c, g) {
     document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = "none";
     this.editUI.hide();
     this.removeUI.hide();
+    this.detailUI.hide();
     this.searchUI.hide();
     this.nodeMenuUI.hide();
     this.dragDropMenuUI.hide();
@@ -1700,6 +1713,8 @@ OrgChart.editUI.prototype.hide = function (f) {
 
 
 //Danny Luzardo
+
+//Remove
 OrgChart.removeUI = function () { };
 OrgChart.removeUI.prototype.init = function (a) {
     this.obj = a;
@@ -2054,6 +2069,369 @@ OrgChart.removeUI.prototype.hide = function (f) {
         this.wrapperElement = null
     }
 };
+//Remove
+
+
+
+
+
+//Details
+OrgChart.detailUI = function () { };
+OrgChart.detailUI.prototype.init = function (a) {
+    this.obj = a;
+    this.fields = null;
+    this.node = null
+};
+OrgChart.detailUI.prototype.show = function (c, e) {
+    this.hide();
+    this.node = this.obj.getBGNode(c);
+    this.wrapperElement = document.getElementById("bgdeleteForm");
+    if (this.wrapperElement) {
+        this.obj.element.removeChild(this.wrapperElement)
+    }
+    this.wrapperElement = document.createElement("div");
+    var b = document.createElement("div");
+    var a = document.createElement("div");
+    var d = window.matchMedia("(max-width: 1150px)")
+        .matches;
+    var f = "400px";
+    if (d) {
+        f = "100%"
+    }
+    Object.assign(this.wrapperElement.style, {
+        width: f,
+        position: "absolute",
+        top: 0,
+        right: "-150px",
+        opacity: 0,
+        "border-left": "1px solid #d7d7d7",
+        "text-align": "left",
+        height: "100%",
+        "background-color": "#ffffff"
+    });
+    if (e) {
+        this._u(this.node, a)
+    } else {
+        this._j(this.node, b)
+    }
+};
+OrgChart.detailUI.prototype._u = function (h, b) {
+    var n = this;
+    var j = document.createElement("div");
+    var e = document.createElement("div");
+    var c = document.createElement("div");
+    var m = document.createElement("div");
+    e.innerHTML = '<svg style="width: 34px; height: 34px;"><path style="fill:#ffffff;" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111 C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587 c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"></path></svg>';
+    Object.assign(e.style, {
+        cursor: "pointer",
+        width: "34px",
+        height: "34px",
+        position: "absolute",
+        top: "7px",
+        right: "7px"
+    });
+    Object.assign(c.style, {
+        "overflow-x": "hidden",
+        "overflow-y": "auto"
+    });
+    Object.assign(j.style, {
+        "background-color": "#039BE5",
+        "min-height": "50px",
+        textAlign: "center",
+        position: "relative"
+    });
+    Object.assign(m.style, {
+        margin: "12px"
+    });
+    this.wrapperElement.appendChild(b);
+    b.appendChild(j);
+    b.appendChild(c);
+    c.appendChild(m);
+    j.appendChild(e);
+    BALKANGraph.htmlRipple(j);
+    var d = this.fields;
+    var a = this.obj._S(h.id);
+    if (h.isGroup) {
+        d = ["Name"];
+        a = {
+            Name: this.obj.config.tags[h.id].groupName
+        }
+    }
+    for (var f = 0; f < d.length; f++) {
+        var o = a[d[f]];
+        if (h.isGroup) {
+            o = this.obj.config.tags[h.id]["group" + d[f]]
+        }
+        if (BALKANGraph._Z(this.obj.config, d[f])) {
+            var g = document.createElement("img");
+            g.src = o;
+            g.style.width = "100px";
+            g.style.margin = "10px";
+            g.style.borderRadius = "50px";
+            j.appendChild(g)
+        } else {
+            if (d[f] == "tags") {
+                if (o) {
+                    for (var k = 0; k < o.length; k++) {
+                        var l = document.createElement("span");
+                        Object.assign(l.style, {
+                            "background-color": "#F57C00",
+                            color: "#ffffff",
+                            margin: "2px",
+                            padding: "2px 12px",
+                            "border-radius": "10px",
+                            display: "inline-block",
+                            border: "1px solid #FFCA28",
+                            "user-select": "none"
+                        });
+                        l.innerHTML = o[k];
+                        m.appendChild(l)
+                    }
+                }
+            } else {
+                c.appendChild(BALKANGraph.input(d[f], o, null, true))
+            }
+        }
+    }
+    this.obj.element.appendChild(this.wrapperElement);
+    j.addEventListener("click", function () {
+        n.hide(false)
+    });
+    BALKANGraph.anim(this.wrapperElement, {
+        right: -150,
+        opacity: 0
+    }, {
+            right: 0,
+            opacity: 0.9
+        }, 300, BALKANGraph.anim.inOutSin, function () {
+            c.style.height = (n.obj.element.offsetHeight - j.offsetHeight) + "px"
+        })
+};
+OrgChart.detailUI.prototype._j = function (l, e) {
+    var n = this;
+    var m = document.createElement("div");
+    var h = document.createElement("div");
+    var a = document.createElement("div");
+    var f = document.createElement("div");
+    var b = document.createElement("div");
+    h.innerHTML = '<svg style="width: 34px; height: 34px;"><path style="fill:#ffffff;" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111 C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587 c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"></path></svg>';
+    this.wrapperElement.id = "bgdeleteForm";
+    Object.assign(h.style, {
+        cursor: "pointer",
+        width: "34px",
+        height: "34px",
+        position: "absolute",
+        top: "7px",
+        right: "7px"
+    });
+    Object.assign(f.style, {
+        "overflow-x": "hidden",
+        "overflow-y": "auto"
+    });
+    Object.assign(m.style, {
+        "background-color": "#039BE5",
+        "min-height": "50px",
+        textAlign: "center",
+        position: "relative"
+    });
+    Object.assign(a.style, {
+        margin: "14px 14px 7px",
+        color: "#4285F4",
+        cursor: "pointer"
+    });
+    Object.assign(b.style, {
+        margin: "14px 14px 7px",
+        color: "rgb(188, 188, 188)"
+    });
+    a.innerHTML = "Add new field";
+    var c = BALKANGraph._r(this.node.tags, "assistant") ? "checked" : "";
+    b.innerHTML = '<div label="isAssistant" style="margin-top: 10px;display:inline-block;">Assistant</div><label class="bg-switch"><input type="checkbox" ' + c + '><span class="bg-slider round"></span></label>';
+    this.wrapperElement.appendChild(e);
+    e.appendChild(m);
+    e.appendChild(f);
+    m.appendChild(h);
+    BALKANGraph.htmlRipple(m);
+    var g = this.fields;
+    var d = this.obj._S(l.id);
+    if (l.isGroup) {
+        g = ["Name"];
+        d = {
+            Name: this.obj.config.tags[l.id].groupName
+        }
+    }
+    for (var j = 0; j < g.length; j++) {
+        var o = d[g[j]];
+        if (l.isGroup) {
+            o = this.obj.config.tags[l.id]["group" + g[j]]
+        }
+        if (g[j] != "tags") {
+            if (BALKANGraph._Z(this.obj.config, g[j])) {
+                if (o) {
+                    var k = document.createElement("img");
+                    k.src = o;
+                    k.style.width = "100px";
+                    k.style.margin = "10px";
+                    k.style.borderRadius = "50px";
+                    m.appendChild(k)
+                }
+                f.appendChild(BALKANGraph.input(g[j], o, null, false, true, this.obj.config.onImageUploaded))
+            } else {
+                f.appendChild(BALKANGraph.input(g[j], o, null, false))
+            }
+        }
+    }
+    if (!l.isGroup && !l.isChildOfGroup && l.childrenIds.length == 0) {
+        f.appendChild(b)
+    }
+    if (!l.isGroup) {
+        f.appendChild(a)
+    }
+    this.obj.element.appendChild(this.wrapperElement);
+    m.addEventListener("click", function () {
+        n.hide(true)
+    });
+    a.addEventListener("click", function () {
+        if (a.innerHTML == "Save") {
+            BALKANGraph.anim(a, {
+                opacity: 1
+            }, {
+                    opacity: 0
+                }, 200, BALKANGraph.anim.inSin, function () {
+                    a.innerHTML = "Add new field";
+                    a.style.textAlign = "left";
+                    var p = document.getElementById("bgNewField");
+                    var q = p.getElementsByTagName("input")[0].value;
+                    f.removeChild(p);
+                    if (q && !BALKANGraph._r(n.fields, q)) {
+                        var r = BALKANGraph.input(q);
+                        r.style.opacity = 0;
+                        f.insertBefore(r, a);
+                        BALKANGraph.anim(r, {
+                            opacity: 0
+                        }, {
+                                opacity: 1
+                            }, 200, BALKANGraph.anim.inSin, function () {
+                                r.getElementsByTagName("input")[0].focus()
+                            })
+                    }
+                    BALKANGraph.anim(a, {
+                        opacity: 0
+                    }, {
+                            opacity: 1
+                        }, 200, BALKANGraph.anim.inSin)
+                })
+        } else {
+            BALKANGraph.anim(a, {
+                opacity: 1
+            }, {
+                    opacity: 0
+                }, 200, BALKANGraph.anim.inSin, function () {
+                    a.innerHTML = "Save";
+                    a.style.textAlign = "right";
+                    BALKANGraph.anim(a, {
+                        opacity: 0
+                    }, {
+                            opacity: 1
+                        }, 200, BALKANGraph.anim.inSin)
+                });
+            var i = BALKANGraph.input(null, null, "Field name");
+            i.style.opacity = 0;
+            i.id = "bgNewField";
+            f.appendChild(i);
+            BALKANGraph.anim(i, {
+                opacity: 0
+            }, {
+                    opacity: 1
+                }, 200, BALKANGraph.anim.inSin, function () {
+                    i.getElementsByTagName("input")[0].focus()
+                })
+        }
+    });
+    BALKANGraph.anim(this.wrapperElement, {
+        right: -150,
+        opacity: 0
+    }, {
+            right: 0,
+            opacity: 0.9
+        }, 300, BALKANGraph.anim.inOutSin, function () {
+            f.style.height = (n.obj.element.offsetHeight - m.offsetHeight) + "px";
+            if (n.wrapperElement.getElementsByTagName("input")
+                .length > 1) {
+                n.wrapperElement.getElementsByTagName("input")[0].focus()
+            }
+        })
+};
+OrgChart.detailUI.prototype.hide = function (f) {
+    if (!this.wrapperElement) {
+        return
+    }
+    var b = this.obj.get(this.node.id);
+    if (this.node.isGroup) {
+        b = {
+            Name: this.obj.config.tags[this.node.id].groupName
+        }
+    }
+    if (f) {
+        var e = this.wrapperElement.querySelectorAll("[label]");
+        for (var c = 0; c < e.length; c++) {
+            var d = e[c].getAttribute("label");
+            if (d != null) {
+                var h = e[c].parentNode.getElementsByTagName("input")[0].value;
+                if (d === BALKANGraph.TAGS) {
+                    b.tags = h.split(",")
+                } else {
+                    if (d === "isAssistant") {
+                        var a = e[c].parentNode.getElementsByTagName("input")[0].checked;
+                        if (a && b.tags) {
+                            if (!BALKANGraph._r(this.node.tags, "assistant")) {
+                                b.tags.push("assistant")
+                            }
+                        } else {
+                            if (a && !b.tags) {
+                                b.tags = ["assistant"]
+                            } else {
+                                if (!a && b.tags) {
+                                    if (this.node.tags.indexOf("assistant") != -1) {
+                                        b.tags.splice(b.tags.indexOf("assistant"), 1)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (b[d] != undefined) {
+                            b[d] = h
+                        } else {
+                            if (h != "") {
+                                b[d] = h
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var g = this;
+        BALKANGraph.anim(g.wrapperElement, {
+            right: 0,
+            opacity: 1
+        }, {
+                right: -150,
+                opacity: 0
+            }, 300, BALKANGraph.anim.inOutSin, function () {
+                if (g.node.isGroup) {
+                    g.obj._aN(g.node.id, "groupName", b.Name)
+                } else {
+                    g.obj.updateNode(b, true)
+                }
+                g.obj.element.removeChild(g.wrapperElement);
+                g.wrapperElement = null
+            })
+    } else {
+        this.obj.element.removeChild(this.wrapperElement);
+        this.wrapperElement = null
+    }
+};
+//Details
+
 //Danny Luzardo
 
 OrgChart.ui = {
@@ -2810,7 +3188,7 @@ BALKANGraph.menuUI.prototype.show = function (m, n, b, h) {
                         } else {
                             if (p === "details") {
                                 var i = l.obj.getBGNode(b);
-                                l.obj.editUI.show(i.id, true)
+                                l.obj.detailUI.show(i.id, true)
                             } else {
                                 if (p === "remove") {
                                     var i = l.obj.getBGNode(b);

@@ -1,7 +1,5 @@
 C:\App\Github\NewOrgChart\NewOrgChart\OrgChartWebApp\obj\Debug\OrgChartWebApp.dll
 C:\App\Github\NewOrgChart\NewOrgChart\OrgChartWebApp\obj\Debug\OrgChartWebApp.pdb
-C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csprojAssemblyReference.cache
-C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csproj.CoreCompileInputs.cache
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\csc.exe
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\csc.exe.config
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\roslyn\csc.rsp
@@ -76,6 +74,8 @@ C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Webpages.Deployment.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Webpages.Razor.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Helpers.xml
 C:\App\Github\NewOrgChart\OrgChartWebApp\bin\System.Web.Mvc.xml
+C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csprojAssemblyReference.cache
+C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csproj.CoreCompileInputs.cache
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.csproj.CopyComplete
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.dll
 C:\App\Github\NewOrgChart\OrgChartWebApp\obj\Debug\DiagramOrgApp.pdb

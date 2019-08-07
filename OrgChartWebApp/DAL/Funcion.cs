@@ -18,7 +18,9 @@ namespace DiagramOrgApp.DAL
         public int fk_Elemento { get; set; }
         public int fk_Usuario { get; set; }
         public bool rolPrincipal { get; set; }
+        public Nullable<int> ak_NodoPadre { get; set; }
     
         public virtual Elemento Elemento { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

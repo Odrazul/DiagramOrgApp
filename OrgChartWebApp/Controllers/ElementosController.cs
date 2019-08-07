@@ -77,7 +77,7 @@ namespace DiagramOrgApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pk_Elemento,fk_TipoElemento,fk_Organizacion,nomElemento,ak_ElementoPadre")] Elemento elemento)
+        public ActionResult Create([Bind(Include = "pk_Elemento,fk_TipoElemento,fk_Organizacion,nomElemento")] Elemento elemento)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +113,7 @@ namespace DiagramOrgApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pk_Elemento,fk_TipoElemento,fk_Organizacion,nomElemento,ak_ElementoPadre")] Elemento elemento)
+        public ActionResult Edit([Bind(Include = "pk_Elemento,fk_TipoElemento,fk_Organizacion,nomElemento")] Elemento elemento)
         {
             if (ModelState.IsValid)
             {

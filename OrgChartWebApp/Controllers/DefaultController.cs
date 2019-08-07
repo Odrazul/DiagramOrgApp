@@ -81,13 +81,6 @@ namespace DiagramOrgApp.Controllers
 
         public JsonResult AddNode(EmployeeNodeModel model)
         {
-
-            //node.name = model.name;
-            //node.pid = model.pid;
-            //node.title = model.title;
-            //node.id = model.id;
-
-
             OrgchartUser employee = new OrgchartUser();
             employee.id = model.id;
             employee.pid = model.pid;
