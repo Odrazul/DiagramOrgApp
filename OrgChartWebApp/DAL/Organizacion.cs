@@ -14,11 +14,11 @@ namespace DiagramOrgApp.DAL
     
     public partial class Organizacion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organizacion()
-        {
-            this.Elemento = new HashSet<Elemento>();
-        }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //public Organizacion()
+        //{
+        //    this.Elemento = new HashSet<Elemento>();
+        //}
     
         public int pk_Organizacion { get; set; }
         public string nomOrganizacion { get; set; }

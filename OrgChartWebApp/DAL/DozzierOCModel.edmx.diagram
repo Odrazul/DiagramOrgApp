@@ -22,6 +22,7 @@
         <AssociationConnector Association="DozzierOCModel.FK_TipoElemento_Elemento" ManuallyRouted="false" />
         <AssociationConnector Association="DozzierOCModel.FK_Usuario_Funcion" ManuallyRouted="false" />
         <AssociationConnector Association="DozzierOCModel.FK_TipoIdentificacion_Usuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DozzierOCModel.User" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

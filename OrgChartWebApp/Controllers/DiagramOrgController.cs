@@ -17,16 +17,18 @@ namespace DiagramOrgApp.Controllers
             return View();
         }
 
-        public JsonResult Read()
+        public JsonResult Read(/*int idOrganigrama*/)
         {
-    
+            int idOrganigrama = 1;
+
+
             var Empleos = ( from DIR in entities.Directorio
                             join USU in entities.Usuario on DIR.pk_Directorio equals USU.fk_Directorio                                 
                             from FUN in entities.Funcion .Where(FUN => FUN.fk_Usuario == USU.pk_Usuario && FUN.fk_Elemento != FUN.ak_NodoPadre)
-                            from ELE in entities.Elemento .Where(ELE => ELE.pk_Elemento == FUN.fk_Elemento) 
+                            from ELE in entities.Elemento .Where(ELE => ELE.pk_Elemento == FUN.fk_Elemento && ELE.fk_Organizacion == idOrganigrama) 
                             join TIP_ELE in entities.TipoElemento on ELE.fk_TipoElemento equals TIP_ELE.pk_TipoElemento
                             from FUN_PAD in entities.Funcion.Where(FUN_PAD => FUN_PAD.pk_Funcion == FUN.ak_NodoPadre).DefaultIfEmpty()
-                            from ELE_PAD in entities.Elemento .Where (ELE_PAD => ELE_PAD.pk_Elemento == FUN_PAD.fk_Elemento).DefaultIfEmpty()
+                            from ELE_PAD in entities.Elemento .Where (ELE_PAD => ELE_PAD.fk_Organizacion == idOrganigrama && ELE_PAD.pk_Elemento == FUN_PAD.fk_Elemento).DefaultIfEmpty()
                             from USU_PAD in entities.Usuario .Where(USU_PAD => USU_PAD.pk_Usuario == FUN_PAD.fk_Usuario).DefaultIfEmpty()
          
                          select new NodoElementoModel
@@ -65,13 +67,14 @@ namespace DiagramOrgApp.Controllers
         {
             try
             {
-                if (entities.Usuario.Find(model.id) == null)
+                if (entities.Usuario.Find(model.pk_Usuario) == null)
                 {
                     AddNode(model);
                 }
                 else
                 {
-                    var user = entities.Usuario.Single(p => p.pk_Usuario == model.id);
+                    //var user = entities.Usuario.Single(p => p.pk_Usuario == model.id);//por id
+                    var user = entities.Usuario.Single(p => p.loginUsuario == model.loginUsuario);
                     if (user != null)
                     {
                         user.fk_Directorio = model.fk_Directorio;
@@ -139,7 +142,7 @@ namespace DiagramOrgApp.Controllers
                             var function = entities.Funcion.Single(p => p.fk_Elemento == model.pk_Elemento && p.fk_Usuario == model.pk_Usuario);
                             if (function != null)
                             {
-                                function.fk_Usuario = model.id;
+                                function.fk_Usuario = model.pk_Usuario;
                                 function.fk_Elemento = model.pk_Elemento;
                                 function.rolPrincipal = model.rolPrincipal;
                                 entities.Entry(function).State = System.Data.Entity.EntityState.Modified;
@@ -183,8 +186,13 @@ namespace DiagramOrgApp.Controllers
                 fk_Directorio = model.fk_Directorio,
                 loginUsuario = model.loginUsuario,
                 nombreUsuario = model.nombreUsuario,
-                emailUsuario = model.emailUsuario
-            };
+                emailUsuario = model.emailUsuario,
+                fk_Dependencia = model.pk_Dependencia,
+                fk_TipoIdentificacion = model.pk_TipoIdentificacion,
+                numIdentificacion = model.numIdentificacion,
+                bloqueado = model.bloqueado,
+                activo = model.activo
+        };
             entities.Usuario.Add(NewUser);
             entities.SaveChanges();
 
@@ -202,7 +210,7 @@ namespace DiagramOrgApp.Controllers
                 fk_Usuario = NewUser.pk_Usuario,
                 fk_Elemento = NewElement.pk_Elemento,
                 rolPrincipal = true,    //pendiente agregar en vista, modelo y controlador
-                ak_NodoPadre = model.id
+                ak_NodoPadre = model.pid
             };
             entities.Funcion.Add(NewFunction);
             entities.SaveChanges();

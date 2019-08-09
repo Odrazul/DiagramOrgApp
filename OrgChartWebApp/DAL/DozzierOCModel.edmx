@@ -79,6 +79,21 @@
           <Property Name="pk_TipoIdentificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomTipoIdentificacion" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="pk_User" />
+          </Key>
+          <Property Name="pk_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="loginUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombreUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="fk_Directorio" Type="int" Nullable="false" />
+          <Property Name="fk_Dependencia" Type="int" Nullable="false" />
+          <Property Name="fk_TipoIdentificacion" Type="int" Nullable="false" />
+          <Property Name="numIdentificacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="bloqueado" Type="bit" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="pk_Usuario" />
@@ -188,6 +203,7 @@
           <EntitySet Name="OrgchartUser" EntityType="Self.OrgchartUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoElemento" EntityType="Self.TipoElemento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Dependencia_Usuario" Association="Self.FK_Dependencia_Usuario">
             <End Role="Dependencia" EntitySet="Dependencia" />
@@ -448,7 +464,23 @@
             <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <EntitySet Name="User" EntityType="DozzierOCModel.User" />
         </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="pk_User" />
+          </Key>
+          <Property Name="pk_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="loginUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nombreUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emailUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fk_Directorio" Type="Int32" Nullable="false" />
+          <Property Name="fk_Dependencia" Type="Int32" Nullable="false" />
+          <Property Name="fk_TipoIdentificacion" Type="Int32" Nullable="false" />
+          <Property Name="numIdentificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="bloqueado" Type="Boolean" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -551,6 +583,22 @@
                 <ScalarProperty Name="numIdentificacion" ColumnName="numIdentificacion" />
                 <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="DozzierOCModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+                <ScalarProperty Name="numIdentificacion" ColumnName="numIdentificacion" />
+                <ScalarProperty Name="fk_TipoIdentificacion" ColumnName="fk_TipoIdentificacion" />
+                <ScalarProperty Name="fk_Dependencia" ColumnName="fk_Dependencia" />
+                <ScalarProperty Name="fk_Directorio" ColumnName="fk_Directorio" />
+                <ScalarProperty Name="emailUser" ColumnName="emailUser" />
+                <ScalarProperty Name="nombreUser" ColumnName="nombreUser" />
+                <ScalarProperty Name="loginUser" ColumnName="loginUser" />
+                <ScalarProperty Name="pk_User" ColumnName="pk_User" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -74,6 +74,21 @@
     <Property Name="pk_TipoIdentificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nomTipoIdentificacion" Type="nvarchar" MaxLength="30" Nullable="false" />
   </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="pk_User" />
+    </Key>
+    <Property Name="pk_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loginUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombreUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="emailUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="fk_Directorio" Type="int" Nullable="false" />
+    <Property Name="fk_Dependencia" Type="int" Nullable="false" />
+    <Property Name="fk_TipoIdentificacion" Type="int" Nullable="false" />
+    <Property Name="numIdentificacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Usuario">
     <Key>
       <PropertyRef Name="pk_Usuario" />
@@ -183,6 +198,7 @@
     <EntitySet Name="OrgchartUser" EntityType="Self.OrgchartUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoElemento" EntityType="Self.TipoElemento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Dependencia_Usuario" Association="Self.FK_Dependencia_Usuario">
       <End Role="Dependencia" EntitySet="Dependencia" />

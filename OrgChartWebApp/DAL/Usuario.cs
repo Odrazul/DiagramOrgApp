@@ -14,11 +14,11 @@ namespace DiagramOrgApp.DAL
     
     public partial class Usuario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
-        {
-            this.Funcion = new HashSet<Funcion>();
-        }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //public Usuario()
+        //{
+        //    this.Funcion = new HashSet<Funcion>();
+        //}
     
         public int pk_Usuario { get; set; }
         public string loginUsuario { get; set; }

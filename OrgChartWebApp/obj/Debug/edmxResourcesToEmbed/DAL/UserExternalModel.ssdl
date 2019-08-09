@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UserExternalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="pk_User" />
+    </Key>
+    <Property Name="pk_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loginUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombreUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="emailUser" Type="nvarchar" MaxLength="50" />
+    <Property Name="fk_Directorio" Type="int" Nullable="false" />
+    <Property Name="fk_Dependencia" Type="int" Nullable="false" />
+    <Property Name="fk_TipoIdentificacion" Type="int" Nullable="false" />
+    <Property Name="numIdentificacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="bloqueado" Type="bit" Nullable="false" />
+    <Property Name="activo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="UserExternalModelStoreContainer">
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

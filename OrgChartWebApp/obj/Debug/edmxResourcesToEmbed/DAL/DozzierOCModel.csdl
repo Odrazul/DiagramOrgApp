@@ -226,5 +226,21 @@
       <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
       <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
+    <EntitySet Name="User" EntityType="DozzierOCModel.User" />
   </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="pk_User" />
+    </Key>
+    <Property Name="pk_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="loginUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nombreUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="emailUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fk_Directorio" Type="Int32" Nullable="false" />
+    <Property Name="fk_Dependencia" Type="Int32" Nullable="false" />
+    <Property Name="fk_TipoIdentificacion" Type="Int32" Nullable="false" />
+    <Property Name="numIdentificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="bloqueado" Type="Boolean" Nullable="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+  </EntityType>
 </Schema>

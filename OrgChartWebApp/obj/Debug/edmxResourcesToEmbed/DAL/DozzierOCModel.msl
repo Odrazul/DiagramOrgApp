@@ -100,5 +100,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="DozzierOCModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="numIdentificacion" ColumnName="numIdentificacion" />
+          <ScalarProperty Name="fk_TipoIdentificacion" ColumnName="fk_TipoIdentificacion" />
+          <ScalarProperty Name="fk_Dependencia" ColumnName="fk_Dependencia" />
+          <ScalarProperty Name="fk_Directorio" ColumnName="fk_Directorio" />
+          <ScalarProperty Name="emailUser" ColumnName="emailUser" />
+          <ScalarProperty Name="nombreUser" ColumnName="nombreUser" />
+          <ScalarProperty Name="loginUser" ColumnName="loginUser" />
+          <ScalarProperty Name="pk_User" ColumnName="pk_User" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

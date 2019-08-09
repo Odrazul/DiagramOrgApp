@@ -70,7 +70,6 @@ function getTiposIdentificaciones(combo) {
     });
 }
 
-
 function getDependencias(combo) {
     $.ajax({
         type: "POST",
@@ -122,13 +121,36 @@ function getUsuarioxId(nombre, correo, Id) {
     $.ajax({
         type: "POST",
         data: { Id: Id },
-        url: "/DiagramOrg/Usuarios/getUsuarioxId",
+        url: "/DiagramOrg/Users/getUsuarioxId",
         success: function (result) {
             if (result.lista) {
 
                 result.lista.forEach((item, index) => {
-                    nombre.val(item.nombreUsuario);
-                    correo.val(item.emailUsuario);
+                    nombre.val(item.nombreUser);
+                    correo.val(item.emailUser);
+                    console.log(item);
+
+                });
+            }
+            else {
+                nombre.val("");
+                correo.val("");
+            }
+        }
+    });
+}
+
+function getUsuarioxLogin(nombre, correo, login) {
+    $.ajax({
+        type: "POST",
+        data: { login: login },
+        url: "/DiagramOrg/Users/getUsuarioxLogin",
+        success: function (result) {
+            if (result.lista) {
+
+                result.lista.forEach((item, index) => {
+                    nombre.val(item.nombreUser);
+                    correo.val(item.emailUser);
                     console.log(item);
 
                 });
@@ -153,7 +175,7 @@ function getUsersfromLDAPbyId(combo, Id) {
                 );
                 result.forEach((item, index) => {
                     combo.append(
-                        $('<option></option>').val(item.UserName).html(item.Apellido + " " + item.PrimerNombre)
+                        $('<option></option>').val(index).html(item.Apellido + " " + item.PrimerNombre)
                     );
                     console.log(item);
                 });
@@ -189,7 +211,7 @@ function getAllUsers(combo) {
 function getAllDbUsers(combo) {
     $.ajax({
         type: "POST",
-        url: "/DiagramOrg/Usuarios/GetDBUsers",
+        url: "/DiagramOrg/Users/GetDBUsers",
         success: function (result) {
             if (result.lista) {
                 combo.append(
@@ -197,7 +219,7 @@ function getAllDbUsers(combo) {
                 );
                 result.lista.forEach((item, index) => {
                     combo.append(
-                        $('<option></option>').val(item.pk_Usuario).html(item.loginUsuario)
+                        $('<option></option>').val(item.pk_User).html(item.loginUser)
                     );
                     console.log(item);
 
@@ -244,6 +266,8 @@ function init()
      //   TipoElementoOnChange($("#cmbTipoElemento"), $("#cmbElemento"));                                   
      //})
 
+
+
     $("#cmbTipoElemento").change(() => {
         TipoElementoOnChangeLabel($("#labelElemento"), $("#cmbTipoElemento").val());
      })
@@ -253,7 +277,7 @@ function init()
     })
 
     $("#cmbUsers").change(() => {
-        getUsuarioxId($("#name"), $("#email"), $("#cmbUsers").val());
+        getUsuarioxLogin($("#name"), $("#email"),  $("#cmbUsers")[0][$("#cmbUsers").val()].text);
     })
     
     //Div DeleteForm     
@@ -270,7 +294,7 @@ function init()
     })
 
     $("#cmbUsersDel").change(() => {
-        getUsuarioxId($("#nameDel"), $("#emailDel"), $("#cmbUsersDel").val());
+        getUsuarioxLogin($("#nameDel"), $("#emailDel"), $("#cmbUsersDel")[0][$("#cmbUsersDel").val()].text);
     })
 
 
@@ -280,9 +304,9 @@ function init()
     $("#cmbDirectorioDet").change(() => {
         DirectorioOnChange($("#cmbDirectorioDet"), $("#cmbUsersDet"));
     })
-
+  
     $("#cmbUsersDet").change(() => {
-        getUsuarioxId($("#nameDet"), $("#emailDet"), $("#cmbUsersDet").val());
+        getUsuarioxLogin($("#nameDet"), $("#emailDet"), $("#cmbUsersDet")[0][$("#cmbUsersDet").val()].text);
     })
         
     getDirectorios($('#cmbDirectorio'));
@@ -303,7 +327,6 @@ function init()
     getTiposIdentificaciones($('#cmbTipoIdentificacionDet'));
     getDependencias($('#cmbDependenciaDet'));
 
-        
 }
 
 
@@ -380,7 +403,7 @@ editForm.prototype.show = function (nodeId)
     this.elemento.value = node.elemento;
     this.pk_TipoElemento.selectedIndex = node.pk_TipoElemento;
     this.pk_Directorio.selectedIndex = node.pk_Directorio;
-    this.pk_Usuario.selectedIndex = node.pk_Usuario;
+    this.pk_Usuario.selectedText = node.loginUsuario;
     
     this.pk_TipoIdentificacion.selectedIndex = node.pk_TipoIdentificacion;
     this.pk_Dependencia.selectedIndex = node.pk_Dependencia;

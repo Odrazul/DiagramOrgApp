@@ -3,7 +3,6 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -32,6 +31,9 @@
 </head>
 <body>
 
+    @{
+        Html.RenderPartial("View");
+    }
     <div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
         <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
         <div>
@@ -222,7 +224,10 @@
     <script>
 
         var chart;
-         $.get("@Url.Action("Read")").done(function (response) {
+        //var idORg = 1;
+        //$.get("@Url.Action("Read")", idORg)
+        $.get("@Url.Action("Read")")
+            .done(function (response) {
             chart = new OrgChart(document.getElementById("tree"), {
                 nodeMenu: {
                     details: { text: "Detalles" },
@@ -283,7 +288,8 @@
                     field_rp: "rolPrincipal",
                     field_pid: "pid"
                 },
-                nodes: response.nodes
+                nodes: response.nodes,
+                template: "isla"
             });
         });
 

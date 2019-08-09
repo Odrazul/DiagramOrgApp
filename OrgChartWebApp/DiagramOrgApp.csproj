@@ -118,6 +118,16 @@
       <DependentUpon>DozzierOCModel.edmx</DependentUpon>
       <LastGenOutput>DozzierOCModel.cs</LastGenOutput>
     </Content>
+    <Content Include="DAL\UserExternalModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserExternalModel.edmx</DependentUpon>
+      <LastGenOutput>UserExternalModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\UserExternalModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserExternalModel.edmx</DependentUpon>
+      <LastGenOutput>UserExternalModel.cs</LastGenOutput>
+    </Content>
     <Content Include="DataLayer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataLayer.cs</LastGenOutput>
@@ -130,6 +140,13 @@
     <Content Include="DAL\DozzierOCModel.edmx.diagram">
       <DependentUpon>DozzierOCModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="DAL\UserExternalModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserExternalModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\UserExternalModel.edmx.diagram">
+      <DependentUpon>UserExternalModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -139,6 +156,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsMyOwnTools2.js" />
     <Content Include="Scripts\jsMyOwnTools.js" />
     <Content Include="Scripts\orgchart.js" />
     <Content Include="Web.config">
@@ -153,8 +171,10 @@
     <Compile Include="Controllers\DirectoriosController.cs" />
     <Compile Include="Controllers\ElementosController.cs" />
     <Compile Include="Controllers\LdapController.cs" />
+    <Compile Include="Controllers\OrganizacionesController.cs" />
     <Compile Include="Controllers\TipoElementosController.cs" />
     <Compile Include="Controllers\TipoIdentificacionesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="DAL\Dependencia.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
@@ -198,6 +218,24 @@
     <Compile Include="DAL\TipoIdentificacion.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\User.cs">
+      <DependentUpon>UserExternalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\UserExternalModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserExternalModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\UserExternalModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserExternalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\UserExternalModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserExternalModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Usuario.cs">
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
@@ -209,6 +247,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrganigramasModel.cs" />
     <Compile Include="Models\NodoElementoModel.cs" />
     <Compile Include="Models\EmployeeNodeModel.cs" />
     <Compile Include="Models\LdapUsers.cs" />
@@ -246,6 +285,13 @@
     <Content Include="Views\DiagramOrg\Details.cshtml" />
     <Content Include="Views\DiagramOrg\Edit.cshtml" />
     <Content Include="Views\DiagramOrg\Vista.cshtml" />
+    <Content Include="Views\Organizaciones\menuDO.cshtml" />
+    <Content Include="Views\Organizaciones\Create.cshtml" />
+    <Content Include="Views\Organizaciones\Delete.cshtml" />
+    <Content Include="Views\Organizaciones\Details.cshtml" />
+    <Content Include="Views\Organizaciones\Edit.cshtml" />
+    <Content Include="Views\DiagramOrg\View.cshtml" />
+    <Content Include="Views\Organizaciones\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,6 +307,7 @@
     <Folder Include="Views\Ldap\" />
     <Folder Include="Views\TipoElementos\" />
     <Folder Include="Views\TipoIdentificaciones\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -12,6 +12,12 @@
     <title>Details</title>
 </head>
 <body>
+
+
+    @{
+        Html.RenderPartial("View");
+    }
+
     <div>
         <h4>Usuario</h4>
         <hr />
@@ -19,35 +25,35 @@
             <dt>
                 @Html.DisplayNameFor(model => model.loginUsuario)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.loginUsuario)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.nombreUsuario)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.nombreUsuario)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.emailUsuario)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.emailUsuario)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Directorio.nomDirectorio)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Directorio.nomDirectorio)
             </dd>
-    
+
         </dl>
     </div>
     <p>

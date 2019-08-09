@@ -1,0 +1,169 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrgChart</title>
+    <script src="~/Scripts/OrgChart.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jsMyOwnTools.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+
+        .field_0 {
+            font-family: Impact;
+        }
+    </style>
+
+    <style type="text/css">
+        .inv {
+            visibility: hidden;
+        }
+
+        .vis {
+            visibility: visible;
+        }
+    </style>
+
+</head>
+<body>
+
+    @*<div class="inv" id="pv1">
+            @Html.Partial("View")
+        </div>*@
+
+
+    @*<div class="inv" id="pv1">
+            @{
+                Html.RenderPartial("View");
+            }
+        </div>*@
+
+
+    <div id="DOForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>DiagramOrg</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="name" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorio" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Usuarios:</label>
+                <select id="cmbUsers" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="title">Cargo:</label>
+                <input style="background-color:#FFCA28" width="200" id="title" value="" />
+            </div>
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="cancel">Cancelar</button>
+                <button style="width:108px;" id="save">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tree">
+
+        <label style="color:#ffffff; width:150px; display:inline-block;" for="equis">Danny:</label>
+    </div>
+
+    <div id="org">
+
+        <label style="color:#ffffff; width:150px; display:inline-block;" for="equis">Danny:</label>
+    </div>
+
+    <div class="inv" id="pv1">
+        @{
+            Html.RenderPartial("View");
+        }
+    </div>
+
+    <script>
+
+
+        var DOForm = function () {
+            this.nodeId = null;
+        };
+
+        DOForm.prototype.init = function (obj) {
+            var that = this;
+            this.obj = obj;
+            this.DOForm = document.getElementById("DOForm");
+            this.nameInput = document.getElementById("nomOrganizacion");
+            this.titleInput = document.getElementById("titulo");
+
+
+        };
+
+        DOForm.prototype.show = function (nodeId)
+        {
+            this.nodeId = nodeId;
+
+            var left = document.body.offsetWidth / 2 - 150;
+            this.DOForm.style.display = "block";
+            this.DOForm.style.left = left + "px";
+            var node = chart.get(nodeId);
+            this.nameInput.value = node.nomOrganizacion;
+            this.titleInput.value = node.titulo;
+        };
+
+        DOForm.prototype.hide = function (showldUpdateTheNode)
+        {
+            this.DOForm.style.display = "none";
+        };
+
+
+        var chart;
+         $.get("@Url.Action("Read")").done(function (response) {
+            chart = new OrgChart(document.getElementById("tree"), {
+                nodeMenu: {
+                    details: { text: "Detalles" },
+                    edit: { text: "Editar" },
+                    addInGroup: { text: "Agregar Grupo" },
+                    add: { text: "Agregar Usuario" },
+                    remove: { text: "Eliminar" }
+                },
+                editUI: new DOForm(),
+                nodeBinding: {
+                    field_0: "nomOrganizacion",
+                    field_1: "titulo"
+                },
+                nodes: response.nodes,
+                template: "ula"
+            });
+        });
+
+
+
+        //function init() {
+        //    getDirectorios();
+        //    getAllDbUsers();
+        //}
+
+        //init();
+
+
+    </script>
+
+
+</body>
+</html>
+

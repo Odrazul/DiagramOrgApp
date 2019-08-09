@@ -35,5 +35,6 @@ namespace DiagramOrgApp.DAL
         public virtual DbSet<TipoElemento> TipoElemento { get; set; }
         public virtual DbSet<TipoIdentificacion> TipoIdentificacion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

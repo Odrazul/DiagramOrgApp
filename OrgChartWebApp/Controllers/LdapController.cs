@@ -81,25 +81,7 @@ namespace DiagramOrgApp.Controllers
         [HttpPost]
         public JsonResult GetLDAPUsers()
         {
-            //string path = "ldap://localhost:389/dc=example,dc=com";
-            //string path = "ldap://localhost:389/cn=Manager,dc=example,dc=com";
 
-            ////forum
-            //string domain = "ldap://ldap.forumsys.com/ou=mathematicians";
-            //string username = "cn=read-only-admin,dc=example,dc=com";
-            //string password = "password";
-            //string path = "Ldap://ldap.forumsys.com:389/ou=scientists,dc=example,dc=com";
-            //string domainAndUsername = domain + @"/" + username;
-            ////forum
-
-            ////local
-            //string domain = "ldap://localhost:389/ou=usuarios";
-            //string username = "cn=luis,ou=usuarios,dc=example,dc=com";
-            //string password = "secret";
-            //string path = "Ldap://ldap.forumsys.com:389/ou=usuarios,dc=example,dc=com";
-            //string domainAndUsername = domain + @"\" + username;
-            ////local
-            ///
             string ldapServer = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAP_Server"].ToString();
             string userName = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAP_UserName"].ToString();
             string password = System.Web.Configuration.WebConfigurationManager.AppSettings["LDAP_Password"].ToString();

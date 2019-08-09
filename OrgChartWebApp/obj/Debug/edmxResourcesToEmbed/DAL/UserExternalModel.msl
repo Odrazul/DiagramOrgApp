@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UserExternalModelStoreContainer" CdmEntityContainer="UserExternalEntities">
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="UserExternalModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="pk_User" ColumnName="pk_User" />
+          <ScalarProperty Name="loginUser" ColumnName="loginUser" />
+          <ScalarProperty Name="nombreUser" ColumnName="nombreUser" />
+          <ScalarProperty Name="emailUser" ColumnName="emailUser" />
+          <ScalarProperty Name="fk_Directorio" ColumnName="fk_Directorio" />
+          <ScalarProperty Name="fk_Dependencia" ColumnName="fk_Dependencia" />
+          <ScalarProperty Name="fk_TipoIdentificacion" ColumnName="fk_TipoIdentificacion" />
+          <ScalarProperty Name="numIdentificacion" ColumnName="numIdentificacion" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
