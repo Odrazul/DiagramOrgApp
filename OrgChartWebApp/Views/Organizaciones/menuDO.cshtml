@@ -21,7 +21,12 @@
 
         #tree {
             width: 100%;
-            height: 100%;
+            height: 50%;
+        }
+
+        #org {
+            width: 100%;
+            height: 50%;
         }
 
         .field_0 {
@@ -54,32 +59,34 @@
         </div>*@
 
 
-    <div id="DOForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
-        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>DiagramOrg</strong></div>
-        <div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
-                <input style="background-color:#FFCA28" width="200" id="name" value="" />
+    @*<div id="DOForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+            <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>DiagramOrg</strong></div>
+            <div>
+                <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                    <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                    <input style="background-color:#FFCA28" width="200" id="name" value="" />
+                </div>
+                <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                    <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                    <select id="cmbDirectorio" class="form-control" width="200"></select>
+                </div>
+                <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                    <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Usuarios:</label>
+                    <select id="cmbUsers" class="form-control" width="200"></select>
+                </div>
+                <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                    <label style="color:#ffffff; width:150px; display:inline-block;" for="title">Cargo:</label>
+                    <input style="background-color:#FFCA28" width="200" id="title" value="" />
+                </div>
+                <div style="padding: 5px 0 15px 0;">
+                    <button style="width:108px;" id="cancel">Cancelar</button>
+                    <button style="width:108px;" id="save">Guardar</button>
+                </div>
             </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
-                <select id="cmbDirectorio" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Usuarios:</label>
-                <select id="cmbUsers" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="title">Cargo:</label>
-                <input style="background-color:#FFCA28" width="200" id="title" value="" />
-            </div>
-            <div style="padding: 5px 0 15px 0;">
-                <button style="width:108px;" id="cancel">Cancelar</button>
-                <button style="width:108px;" id="save">Guardar</button>
-            </div>
-        </div>
+        </div>*@
+    <div>      
+        <button id="buttonBack">Ir Atras</button>
     </div>
-
     <div id="tree">
 
         <label style="color:#ffffff; width:150px; display:inline-block;" for="equis">Danny:</label>
@@ -99,36 +106,36 @@
     <script>
 
 
-        var DOForm = function () {
-            this.nodeId = null;
-        };
+        //var DOForm = function () {
+        //    this.nodeId = null;
+        //};
 
-        DOForm.prototype.init = function (obj) {
-            var that = this;
-            this.obj = obj;
-            this.DOForm = document.getElementById("DOForm");
-            this.nameInput = document.getElementById("nomOrganizacion");
-            this.titleInput = document.getElementById("titulo");
+        //DOForm.prototype.init = function (obj) {
+        //    var that = this;
+        //    this.obj = obj;
+        //    this.DOForm = document.getElementById("DOForm");
+        //    this.nameInput = document.getElementById("nomOrganizacion");
+        //    this.titleInput = document.getElementById("titulo");
 
 
-        };
+        //};
 
-        DOForm.prototype.show = function (nodeId)
-        {
-            this.nodeId = nodeId;
+        //DOForm.prototype.show = function (nodeId)
+        //{
+        //    this.nodeId = nodeId;
 
-            var left = document.body.offsetWidth / 2 - 150;
-            this.DOForm.style.display = "block";
-            this.DOForm.style.left = left + "px";
-            var node = chart.get(nodeId);
-            this.nameInput.value = node.nomOrganizacion;
-            this.titleInput.value = node.titulo;
-        };
+        //    var left = document.body.offsetWidth / 2 - 150;
+        //    this.DOForm.style.display = "block";
+        //    this.DOForm.style.left = left + "px";
+        //    var node = chart.get(nodeId);
+        //    this.nameInput.value = node.nomOrganizacion;
+        //    this.titleInput.value = node.titulo;
+        //};
 
-        DOForm.prototype.hide = function (showldUpdateTheNode)
-        {
-            this.DOForm.style.display = "none";
-        };
+        //DOForm.prototype.hide = function (showldUpdateTheNode)
+        //{
+        //    this.DOForm.style.display = "none";
+        //};
 
 
         var chart;
@@ -141,29 +148,40 @@
                     add: { text: "Agregar Usuario" },
                     remove: { text: "Eliminar" }
                 },
-                editUI: new DOForm(),
+                //editUI: new DOForm(),
                 nodeBinding: {
                     field_0: "nomOrganizacion",
                     field_1: "titulo"
                 },
                 nodes: response.nodes,
-                template: "ula"
+                template: "ula",
+                onClick: function (sender, data) {
+                    //return data.text == "YES" || data.text == "NO";
+                    alert("Organigrama: " + data.id);
+                    showParent(data.id, 0);
+                }
             });
         });
 
+        function showParent(idOrg, val) {
+            if (val==1) {
+                $("#tree").show();
+                $("#org").hide();
+            } else {
+                $("#tree").hide();
+                $("#org").show();
+            }
+        }
+
+        //showParent(null, false);
+        $("#tree").show();
+        $("#org").show();
 
 
-        //function init() {
-        //    getDirectorios();
-        //    getAllDbUsers();
-        //}
-
-        //init();
-
-
+        $("#buttonBack").click(function () {
+            showParent(null, 1);
+        })
     </script>
-
-
 </body>
 </html>
 

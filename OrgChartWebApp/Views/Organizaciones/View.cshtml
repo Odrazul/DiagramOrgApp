@@ -1,200 +1,193 @@
-﻿@{
-    Layout = null;
-}
+﻿
 
-<!DOCTYPE html>
-<html>
+<div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+    <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
+    <div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+            <select id="cmbTipoElemento" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label id="labelElemento" style="color:#ffffff; width:150px; display:inline-block;" for="labelElemento">Cargo:</label>
+            <input style="background-color:#FFCA28" width="200" id="elemento" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+            <select id="cmbDirectorio" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+            <select id="cmbUsers" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+            <input style="background-color:#FFCA28" width="200" id="name" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+            <input style="background-color:#FFCA28" width="200" id="email" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+            <select id="cmbDependencia" class="form-control" width=180px></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+            <select id="cmbTipoIdentificacion" class="form-control" width=180px></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+            <input style="background-color:#FFCA28" width="200" id="numIdentificacion" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSi" name="bloqueado" value="1">
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNo" name="bloqueado" value="0">
 
-<body>
+        </div>
 
-    <div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
-        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
-        <div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
-                <select id="cmbTipoElemento" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label id="labelElemento" style="color:#ffffff; width:150px; display:inline-block;" for="labelElemento">Cargo:</label>
-                <input style="background-color:#FFCA28" width="200" id="elemento" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
-                <select id="cmbDirectorio" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
-                <select id="cmbUsers" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
-                <input style="background-color:#FFCA28" width="200" id="name" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
-                <input style="background-color:#FFCA28" width="200" id="email" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
-                <select id="cmbDependencia" class="form-control" width=180px></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
-                <select id="cmbTipoIdentificacion" class="form-control" width=180px></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
-                <input style="background-color:#FFCA28" width="200" id="numIdentificacion" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSi" name="bloqueado" value="1">
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNo" name="bloqueado" value="0">
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+            <input type="checkbox" id="chbxActivo" name="activo" value="1">
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+            <input type="checkbox" id="chbxRolPrincipal" name="activo" value="1">
+        </div>
 
-            </div>
-
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
-                <input type="checkbox" id="chbxActivo" name="activo" value="1">
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
-                <input type="checkbox" id="chbxRolPrincipal" name="activo" value="1">
-            </div>
-
-            <div style="padding: 5px 0 15px 0;">
-                <button style="width:108px;" id="cancel">Cancelar</button>
-                <button style="width:108px;" id="save">Guardar</button>
-            </div>
+        <div style="padding: 5px 0 15px 0;">
+            <button style="width:108px;" id="cancel">Cancelar</button>
+            <button style="width:108px;" id="save">Guardar</button>
         </div>
     </div>
+</div>
 
-    <div id="deleteForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
-        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
-        <div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
-                <select id="cmbTipoElementoDel" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label id="labelElementoDel" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDel">Cargo:</label>
-                <input style="background-color:#FFCA28" width="200" id="elementoDel" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
-                <select id="cmbDirectorioDel" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
-                <select id="cmbUsersDel" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
-                <input style="background-color:#FFCA28" width="200" id="nameDel" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
-                <input style="background-color:#FFCA28" width="200" id="emailDel" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
-                <select id="cmbDependenciaDel" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
-                <select id="cmbTipoIdentificacionDel" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
-                <input style="background-color:#FFCA28" width="200" id="numIdentificacionDel" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDel" name="bloqueadoDel" value="1">
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDel" name="bloqueadoDel" value="0">
+<div id="deleteForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+    <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
+    <div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+            <select id="cmbTipoElementoDel" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label id="labelElementoDel" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDel">Cargo:</label>
+            <input style="background-color:#FFCA28" width="200" id="elementoDel" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+            <select id="cmbDirectorioDel" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+            <select id="cmbUsersDel" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+            <input style="background-color:#FFCA28" width="200" id="nameDel" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+            <input style="background-color:#FFCA28" width="200" id="emailDel" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+            <select id="cmbDependenciaDel" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+            <select id="cmbTipoIdentificacionDel" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+            <input style="background-color:#FFCA28" width="200" id="numIdentificacionDel" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDel" name="bloqueadoDel" value="1">
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDel" name="bloqueadoDel" value="0">
 
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
-                <input type="checkbox" id="chbxActivoDel" name="activo" value="1">
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
-                <input type="checkbox" id="chbxRolPrincipalDel" name="activo" value="1">
-            </div>
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+            <input type="checkbox" id="chbxActivoDel" name="activo" value="1">
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+            <input type="checkbox" id="chbxRolPrincipalDel" name="activo" value="1">
+        </div>
 
-            <div style="padding: 5px 0 15px 0;">
-                <button style="width:108px;" id="yes">Sí</button>
-                <button style="width:108px;" id="no">No</button>
-            </div>
+        <div style="padding: 5px 0 15px 0;">
+            <button style="width:108px;" id="yes">Sí</button>
+            <button style="width:108px;" id="no">No</button>
         </div>
     </div>
+</div>
 
 
-    <div id="detailForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
-        <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
-        <div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
-                <select id="cmbTipoElementoDet" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label id="labelElementoDet" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDet">Cargo:</label>
-                <input style="background-color:#FFCA28" width="200" id="elementoDet" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
-                <select id="cmbDirectorioDet" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
-                <select id="cmbUsersDet" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
-                <input style="background-color:#FFCA28" width="200" id="nameDet" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
-                <input style="background-color:#FFCA28" width="200" id="emailDet" value="" />
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
-                <select id="cmbDependenciaDet" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
-                <select id="cmbTipoIdentificacionDet" class="form-control" width="200"></select>
-            </div>
-            <div style="padding: 10px 0 5px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
-                <input style="background-color:#FFCA28" width="200" id="numIdentificacionDet" value="" />
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDet" name="bloqueadoDet" value="1">
-                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDet" name="bloqueadoDet" value="0">
+<div id="detailForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+    <div style="padding: 10px 0 10px 0; background-color:#039BE5; color: #ffffff;"><strong>Datos Usuario</strong></div>
+    <div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+            <select id="cmbTipoElementoDet" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label id="labelElementoDet" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDet">Cargo:</label>
+            <input style="background-color:#FFCA28" width="200" id="elementoDet" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+            <select id="cmbDirectorioDet" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+            <select id="cmbUsersDet" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+            <input style="background-color:#FFCA28" width="200" id="nameDet" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+            <input style="background-color:#FFCA28" width="200" id="emailDet" value="" />
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+            <select id="cmbDependenciaDet" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+            <select id="cmbTipoIdentificacionDet" class="form-control" width="200"></select>
+        </div>
+        <div style="padding: 10px 0 5px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+            <input style="background-color:#FFCA28" width="200" id="numIdentificacionDet" value="" />
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDet" name="bloqueadoDet" value="1">
+            <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDet" name="bloqueadoDet" value="0">
 
-            </div>
+        </div>
 
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
-                <input type="checkbox" id="chbxActivoDet" name="activo" value="1">
-            </div>
-            <div style="padding: 5px 0 10px 40px; text-align:left; ">
-                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
-                <input type="checkbox" id="chbxRolPrincipalDet" name="activo" value="1">
-            </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+            <input type="checkbox" id="chbxActivoDet" name="activo" value="1">
+        </div>
+        <div style="padding: 5px 0 10px 40px; text-align:left; ">
+            <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+            <input type="checkbox" id="chbxRolPrincipalDet" name="activo" value="1">
+        </div>
 
-            <div style="padding: 5px 0 15px 0;">
-                <button style="width:108px;" id="close">Cerrar</button>
-            </div>
+        <div style="padding: 5px 0 15px 0;">
+            <button style="width:108px;" id="close">Cerrar</button>
         </div>
     </div>
+</div>
 
-    <div id="org"></div>
+<div id="org"></div>
 
-    <script>
+<script>
 
         var chart;
         //var idORg = 1;
@@ -287,7 +280,6 @@
 
         init();
 
-    </script>
-</body>
-</html>
+</script>
+
 
