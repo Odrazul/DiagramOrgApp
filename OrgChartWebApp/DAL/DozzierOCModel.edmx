@@ -19,8 +19,8 @@
           <Property Name="pk_Directorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomDirectorio" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="cadenaConexion" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="usuarioConexion" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="claveConexion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="campoConfig1" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="campoConfig2" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="Elemento">
           <Key>
@@ -121,18 +121,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Directorio_Usuario">
-          <End Role="Directorio" Type="Self.Directorio" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Directorio">
-              <PropertyRef Name="pk_Directorio" />
-            </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="fk_Directorio" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Funcion_Elemento">
           <End Role="Elemento" Type="Self.Elemento" Multiplicity="1" />
           <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
@@ -181,6 +169,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Usuario_Directorio">
+          <End Role="Directorio" Type="Self.Directorio" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Directorio">
+              <PropertyRef Name="pk_Directorio" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="fk_Directorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Usuario_Funcion">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Funcion" Type="Self.Funcion" Multiplicity="*" />
@@ -209,10 +209,6 @@
             <End Role="Dependencia" EntitySet="Dependencia" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <AssociationSet Name="FK_Directorio_Usuario" Association="Self.FK_Directorio_Usuario">
-            <End Role="Directorio" EntitySet="Directorio" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
           <AssociationSet Name="FK_Funcion_Elemento" Association="Self.FK_Funcion_Elemento">
             <End Role="Elemento" EntitySet="Elemento" />
             <End Role="Funcion" EntitySet="Funcion" />
@@ -227,6 +223,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_TipoIdentificacion_Usuario" Association="Self.FK_TipoIdentificacion_Usuario">
             <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Directorio" Association="Self.FK_Usuario_Directorio">
+            <End Role="Directorio" EntitySet="Directorio" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_Funcion" Association="Self.FK_Usuario_Funcion">
@@ -253,9 +253,9 @@
           <Property Name="pk_Directorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomDirectorio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="cadenaConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="usuarioConexion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="claveConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Directorio_Usuario" FromRole="Directorio" ToRole="Usuario" />
+          <Property Name="campoConfig1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="campoConfig2" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Elemento">
           <Key>
@@ -498,12 +498,12 @@
           <EntitySetMapping Name="Directorio">
             <EntityTypeMapping TypeName="DozzierOCModel.Directorio">
               <MappingFragment StoreEntitySet="Directorio">
+                <ScalarProperty Name="campoConfig2" ColumnName="campoConfig2" />
+                <ScalarProperty Name="campoConfig1" ColumnName="campoConfig1" />
                 <ScalarProperty Name="pk_Directorio" ColumnName="pk_Directorio" />
                 <ScalarProperty Name="nomDirectorio" ColumnName="nomDirectorio" />
                 <ScalarProperty Name="cadenaConexion" ColumnName="cadenaConexion" />
-                <ScalarProperty Name="usuarioConexion" ColumnName="usuarioConexion" />
-                <ScalarProperty Name="claveConexion" ColumnName="claveConexion" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Elemento">

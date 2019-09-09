@@ -22,6 +22,7 @@ namespace DiagramOrgApp.Models
         public bool activo { get; set; }
 
         //Elemento
+        public int pk_Organizacion { get; set; }
         public int pk_TipoElemento { get; set; }
         public string nomTipoElemento { get; set; }
         public int pk_Elemento { get; set; }

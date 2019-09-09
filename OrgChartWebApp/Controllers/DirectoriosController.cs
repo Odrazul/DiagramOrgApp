@@ -26,8 +26,8 @@ namespace DiagramOrgApp.Controllers
                 L.pk_Directorio,
                 L.nomDirectorio,
                 L.cadenaConexion,
-                L.usuarioConexion,
-                L.claveConexion
+                L.campoConfig1,
+                L.campoConfig2
             });
 
 

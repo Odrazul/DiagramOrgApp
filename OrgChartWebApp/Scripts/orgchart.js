@@ -948,7 +948,7 @@ BALKANGraph.linkFieldsOpenTag = '<g transform="matrix(1,0,0,1,{x},{y}) rotate({r
 BALKANGraph.grCloseTag = "</g>";
 BALKANGraph.IT_IS_LONELY_HERE = '<g transform="translate(-100, 0)" style="cursor:pointer;"  control-add="control-add"><text fill="#039be5">{link}</text></g>';
 BALKANGraph.RES = {};
-BALKANGraph.RES.IT_IS_LONELY_HERE_LINK = "It's lonely here, add your first node";
+BALKANGraph.RES.IT_IS_LONELY_HERE_LINK = "El Organigrama est\u00e1 vac\u00edo, incluya el primer elemento";
 BALKANGraph.MAXIMIZE = '<g style="cursor:pointer;" transform="matrix(1,0,0,1,{x},20)" control-maxmin-id="{id}"><rect x="0" y="0" width="26" height="26" fill="#EEEEEE" stroke="#aeaeae" stroke-width="1" rx="2"></rect><polyline  stroke="#aeaeae" stroke-width="2" points="9,6 17,13 9,20" fill="none"></polyline></g>';
 BALKANGraph.MINIMIZE = '<g style="cursor:pointer;" transform="matrix(1,0,0,1,{x},20)" control-maxmin-id="{id}"><rect x="0" y="0" width="26" height="26" fill="#EEEEEE" stroke="#aeaeae" stroke-width="1" rx="2"></rect><polyline stroke="#aeaeae" stroke-width="2" points="17,6 9,13 17,20" fill="none"></polyline></g>';
 BALKANGraph.node = function (a, b, c, e, f) {

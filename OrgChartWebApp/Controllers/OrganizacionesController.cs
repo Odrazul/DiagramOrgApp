@@ -16,11 +16,49 @@ namespace DiagramOrgApp.Controllers
     {
         DozzierOCEntities entities = new DozzierOCEntities();
 
+
+        public JsonResult getOrganigramas()
+        {
+
+            List<Organizacion> list = entities.Organizacion.ToList();
+
+            var lista = list.Select(L => new {
+
+                L.pk_Organizacion,
+                L.nomOrganizacion
+            });
+                        
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
+        }
+
+        public int SetOrganigramas(string organigrama)
+        {
+            Organizacion NewDiagrama =null;
+            if (entities.Organizacion.FirstOrDefault(p => p.nomOrganizacion == organigrama) == null)
+            {
+                NewDiagrama = new Organizacion
+                {                    
+                    nomOrganizacion = organigrama
+                };
+                entities.Organizacion.Add(NewDiagrama);
+                entities.SaveChanges();
+               
+            }
+
+            return NewDiagrama.pk_Organizacion;
+        }
+
+
         public ActionResult menuDO()
         {
             return View();
         }
 
+
+        //public ActionResult Organigramas()
+        //{
+        //    return View();
+        //}
 
 
         //Segmento Interno de Diagramas

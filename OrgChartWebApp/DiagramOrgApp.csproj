@@ -151,13 +151,14 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jsMyOwnTools2.js" />
     <Content Include="Scripts\jsMyOwnTools.js" />
+    <Content Include="Scripts\DiagramOrg.js" />
     <Content Include="Scripts\orgchart.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -219,7 +220,7 @@
       <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\User.cs">
-      <DependentUpon>UserExternalModel.tt</DependentUpon>
+      <DependentUpon>DozzierOCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\UserExternalModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -247,6 +248,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GruposModel.cs" />
     <Compile Include="Models\OrganigramasModel.cs" />
     <Compile Include="Models\NodoElementoModel.cs" />
     <Compile Include="Models\EmployeeNodeModel.cs" />
@@ -292,6 +294,8 @@
     <Content Include="Views\Organizaciones\Edit.cshtml" />
     <Content Include="Views\DiagramOrg\View.cshtml" />
     <Content Include="Views\Organizaciones\View.cshtml" />
+    <Content Include="Views\Organizaciones\Organigramas.cshtml" />
+    <Content Include="Views\DiagramOrg\Hijos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

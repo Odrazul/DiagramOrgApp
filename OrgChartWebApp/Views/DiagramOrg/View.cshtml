@@ -1,19 +1,44 @@
 ﻿<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-        </div>
+
+    <div style="padding: 10px 0 5px 40px; text-align:left; ">
+        <span>
+            <label style="color:#000000; width:150px; display:inline-block; text-align:right; " for="name">Elemento:</label>
+            <select id="cmbElemento" style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0;" class="form-control" width="200">
+                <option value="0">Seleccione un Elemento</option>
+                <option value="1">Organigramas</option>
+                <option value="2">Grupos</option>
+                <option value="3">Usuarios</option>
+            </select>
+
+        </span>
+
+        <span>
+            <label style="color:#000000; width:150px; display:inline-block; text-align:right; " for="name" id="LabelOG">Organigramas:</label>
+            <select id="cmbOrganigramas" style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0;" class="form-control" width="200"></select>
+            <input style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0" width="200" id="nuevoOrganigrama" value="" onkeyup="FormatearControl(this)" />
+            <button style="width:108px;" id="create"><strong>Crear</strong></button>
+            <button style="width:108px;" id="back"><strong>Regresar</strong></button>
+
+        </span>
+
+        <span>
+            <label style="color:#000000; width:150px; display:inline-block; text-align:right; " for="name" id="LabelGrupo">Grupos:</label>
+            <select id="cmbGrupos" style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0;" class="form-control" width="200"></select>
+            <input style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0" width="200" id="nuevoGrupo" value="" onkeyup="FormatearControl(this)" />
+            <button style="width:108px;" id="createG"><strong>Crear</strong></button>
+        </span>
+
+        <span>
+            <label style="color:#000000; width:150px; display:inline-block; text-align:right; " for="name" id="LabelUsuario">Usuarios:</label>
+            <select id="cmbUsuarios" style="font-family: Open Sans; font-size: 10pt; background-color:#F0F0F0;" class="form-control" width="200"></select>
+
+        </span>
+
+        <asp:HiddenField ID="hdnOrganigrama" runat="server" Value="" Visible="false">   </asp:HiddenField>
+        <asp:HiddenField ID="hdnNomOrganigrama" runat="server" Value="" Visible="false">   </asp:HiddenField>
+
+
+        @*<select id="cmbLlave" style="font-family: Open Sans; font-size: 10pt" class="form-control" width="200"></select>*@
     </div>
-</div>
+
+    </div>

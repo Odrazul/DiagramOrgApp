@@ -12,11 +12,11 @@
     <EntitySetMapping Name="Directorio">
       <EntityTypeMapping TypeName="DozzierOCModel.Directorio">
         <MappingFragment StoreEntitySet="Directorio">
+          <ScalarProperty Name="campoConfig2" ColumnName="campoConfig2" />
+          <ScalarProperty Name="campoConfig1" ColumnName="campoConfig1" />
           <ScalarProperty Name="pk_Directorio" ColumnName="pk_Directorio" />
           <ScalarProperty Name="nomDirectorio" ColumnName="nomDirectorio" />
           <ScalarProperty Name="cadenaConexion" ColumnName="cadenaConexion" />
-          <ScalarProperty Name="usuarioConexion" ColumnName="usuarioConexion" />
-          <ScalarProperty Name="claveConexion" ColumnName="claveConexion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

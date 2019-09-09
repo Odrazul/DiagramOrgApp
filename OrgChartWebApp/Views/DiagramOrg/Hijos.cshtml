@@ -1,0 +1,438 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrgChart</title>
+    <script src="~/Scripts/DiagramOrg.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @*<script src="~/Scripts/jsMyOwnTools.js"></script>*@
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #tree, #children {
+            width: 100%;
+            height: 100%;
+        }
+
+        .field_0 {
+            font-family: Impact;
+        }
+    </style>
+</head>
+<body>
+    @{
+        Html.RenderPartial("View");
+    }
+    <div id="editForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F0F0F0;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#F0F0F0; color: #808080";><strong>Información del Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+                <select id="cmbTipoElemento" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label id="labelElemento" style="color:#ffffff; width:150px; display:inline-block;" for="labelElemento">Cargo:</label>
+                <input style="background-color:#FFCA28" width="200" id="elemento" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorio" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+                <select id="cmbUsers" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="name" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+                <input style="background-color:#FFCA28" width="200" id="email" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+                <select id="cmbDependencia" class="form-control" width=180px></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+                <select id="cmbTipoIdentificacion" class="form-control" width=180px></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+                <input style="background-color:#FFCA28" width="200" id="numIdentificacion" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSi" name="bloqueado" value="1">
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNo" name="bloqueado" value="0">
+
+            </div>
+
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+                <input type="checkbox" id="chbxActivo" name="activo" value="1">
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+                <input type="checkbox" id="chbxRolPrincipal" name="activo" value="1">
+            </div>
+
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="cancel">Cancelar</button>
+                <button style="width:108px;" id="save">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#F0F0F0; color: #808080";><strong>Información del Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+                <select id="cmbTipoElementoDel" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label id="labelElementoDel" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDel">Cargo:</label>
+                <input style="background-color:#FFCA28" width="200" id="elementoDel" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorioDel" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+                <select id="cmbUsersDel" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="nameDel" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+                <input style="background-color:#FFCA28" width="200" id="emailDel" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+                <select id="cmbDependenciaDel" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+                <select id="cmbTipoIdentificacionDel" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+                <input style="background-color:#FFCA28" width="200" id="numIdentificacionDel" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDel" name="bloqueadoDel" value="1">
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDel" name="bloqueadoDel" value="0">
+
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+                <input type="checkbox" id="chbxActivoDel" name="activo" value="1">
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+                <input type="checkbox" id="chbxRolPrincipalDel" name="activo" value="1">
+            </div>
+
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="yes">Sí</button>
+                <button style="width:108px;" id="no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="detailForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#F0F0F0; color: #808080";><strong>Información del Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+                <select id="cmbTipoElementoDet" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label id="labelElementoDet" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoDet">Cargo:</label>
+                <input style="background-color:#FFCA28" width="200" id="elementoDet" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorioDet" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+                <select id="cmbUsersDet" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="nameDet" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+                <input style="background-color:#FFCA28" width="200" id="emailDet" value="" />
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="dependencia">Dependencia:</label>
+                <select id="cmbDependenciaDet" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="tipoidentificacion">Tipo Identificación:</label>
+                <select id="cmbTipoIdentificacionDet" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="identificacion">Número Identificación:</label>
+                <input style="background-color:#FFCA28" width="200" id="numIdentificacionDet" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="bloqueo">Bloqueado:</label>
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">Sí</label><input type="radio" id="BloqSiDet" name="bloqueadoDet" value="1">
+                <label style="color:#ffffff; width:20px; display:inline-block;" for="Si">No</label><input type="radio" id="BloqNoDet" name="bloqueadoDet" value="0">
+
+            </div>
+
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Activo:</label>
+                <input type="checkbox" id="chbxActivoDet" name="activo" value="1">
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="activo">Rol Principal:</label>
+                <input type="checkbox" id="chbxRolPrincipalDet" name="activo" value="1">
+            </div>
+
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="editGroupForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#F0F0F0; color: #808080";><strong>Datos Grupo</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Tipo Elemento:</label>
+                <select id="cmbTipoElementoG" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label id="labelElemento" style="color:#ffffff; width:150px; display:inline-block;" for="labelElementoG">Grupo:</label>
+                <input style="background-color:#FFCA28" width="200" id="elementoG" value="" />
+            </div>
+            <div style="padding: 5px 0 10px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="email">Email:</label>
+                <input style="background-color:#FFCA28" width="200" id="emailG" value="" />
+            </div>
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="cancelG">Cancelar</button>
+                <button style="width:108px;" id="saveG">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addMemberForm" style="display:none; text-align:center; position:absolute; border: 1px solid #aeaeae;width:400px;background-color:#F57C00;z-index:10000; ">
+        <div style="padding: 10px 0 10px 0; background-color:#F0F0F0; color: #808080";><strong>Información del Usuario</strong></div>
+        <div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Origen Usuario:</label>
+                <select id="cmbDirectorioM" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Login:</label>
+                <select id="cmbUsersM" class="form-control" width="200"></select>
+            </div>
+            <div style="padding: 10px 0 5px 40px; text-align:left; ">
+                <label style="color:#ffffff; width:150px; display:inline-block;" for="name">Nombre:</label>
+                <input style="background-color:#FFCA28" width="200" id="nameM" value="" />
+            </div>
+
+
+            <div style="padding: 5px 0 15px 0;">
+                <button style="width:108px;" id="cancelM">Cancelar</button>
+                <button style="width:108px;" id="saveM">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="children"></div>
+    @*<div id="tree"></div>*@
+
+
+    <script>
+        var chart;
+        var children;
+
+        @*function guardarNodo(node)
+        {
+            if (isNaN(node.id)) {
+                node.id = 0;
+                node.pid = parseInt(node.pid);
+            }
+             $.post("@Url.Action("UpdateNode")", node)
+                .done(function () {
+                })
+            return false;
+        }
+
+       function borrarNodo(idnode) {
+           $.post("@Url.Action("RemoveNode")", idnode)
+                .done(function () {
+                })
+            return false;
+        }
+
+        function guardarGrupo(node)
+        {
+            if (isNaN(node.id)) {
+                node.id = 0;
+                node.pid = parseInt(node.pid);
+            }
+             $.post("@Url.Action("UpdateGroup")", node)
+                .done(function () {
+                })
+            return false;
+        }
+
+        function guardarMiembro(node)
+        {
+            if (isNaN(node.id)) {
+                node.id = 0;
+                node.pid = parseInt(node.pid);
+            }
+             $.post("@Url.Action("UpdateMember")", node)
+                .done(function () {
+                })
+            return false;
+        }*@
+
+
+        var detailForm = function () {
+            this.nodeId = null;
+        };
+        detailForm.prototype.init = function (obj) {
+            var that = this;
+            this.obj = obj;
+            this.detailForm = document.getElementById("detailForm");
+            this.nameInputDet = document.getElementById("nameDet");
+            this.elementoDet = document.getElementById("elementoDet");
+            this.pk_TipoElementoDet = document.getElementById("cmbTipoElementoDet");
+
+            // this.pk_Organizacion = document.getElementById("cmbOrganigramas");
+
+            this.pk_DirectorioDet = document.getElementById("cmbDirectorioDet");
+            this.pk_UsuarioDet = document.getElementById("cmbUsersDet");
+            this.titleInputDet = document.getElementById("emailDet");
+            this.pk_TipoIdentificacionDet = document.getElementById("cmbTipoIdentificacionDet");
+            this.pk_DependenciaDet = document.getElementById("cmbDependenciaDet");
+            this.numIdentificacionDet = document.getElementById("numIdentificacionDet");
+            this.BloqSiDet = document.getElementById("BloqSiDet");
+            this.BloqNoDet = document.getElementById("BloqNoDet");
+            this.ActivoDet = document.getElementById("chbxActivoDet");
+            this.RolPrincipalDet = document.getElementById("chbxRolPrincipalDet");
+            this.closeButton = document.getElementById("close");
+
+            this.closeButton.addEventListener("click", function () {
+                that.hide();
+            });
+        };
+
+        detailForm.prototype.show = function (nodeId) {
+            this.nodeId = nodeId;
+
+            var left = document.body.offsetWidth / 2 - 150;
+            this.detailForm.style.display = "block";
+            this.detailForm.style.left = left + "px";
+            var node = chart.get(nodeId);
+            this.nameInputDet.value = node.nombreUsuario;
+            this.titleInputDet.value = node.emailUsuario;
+            this.elementoDet.value = node.elemento;
+            this.pk_TipoElementoDet.selectedIndex = node.pk_TipoElemento;
+
+            // this.pk_Organizacion.selectedIndex = node.pk_Organizacion;
+
+            this.pk_DirectorioDet.selectedIndex = node.pk_Directorio;
+            setOrganigramaenCombo($("#cmbUsersDet"), node.loginUsuario);
+
+            this.pk_TipoIdentificacionDet.selectedIndex = node.pk_TipoIdentificacion;
+            this.pk_DependenciaDet.selectedIndex = node.pk_Dependencia;
+            this.numIdentificacionDet.value = node.numIdentificacion;
+
+            this.BloqSiDet.checked = node.bloqueado;
+            this.BloqNoDet.checked = false;
+            if (!node.bloqueado)
+                this.BloqNoDet.checked = true;
+
+            this.ActivoDet.checked = node.activo;
+            this.RolPrincipalDet.checked = node.rolPrincipal;
+
+            this.nameInputDet.readOnly = "true";
+            this.titleInputDet.readOnly = "true";
+            this.elementoDet.readOnly = "true";
+            this.pk_TipoElementoDet.disabled = "true";
+            this.pk_DirectorioDet.disabled = "true";
+            this.pk_UsuarioDet.disabled = "true";
+            this.pk_DependenciaDet.disabled = "true";
+            this.pk_TipoIdentificacionDet.disabled = "true";
+            this.numIdentificacionDet.readOnly = "true";
+            this.BloqSiDet.disabled = "true";
+            this.BloqNoDet.disabled = "true";
+            this.ActivoDet.disabled = "true";
+            this.RolPrincipalDet.disabled = "true";
+        };
+
+        detailForm.prototype.hide = function (showldDetailTheNode) {
+            this.detailForm.style.display = "none";
+        };
+        function DesplegarHijos(IdGrupo) {
+
+            $.ajax({
+
+                type: "GET",
+                data: { idGrupo: IdGrupo },
+                url: "/DiagramOrg/DiagramOrg/ReadChildren",
+                success: function (response) {
+                    chart = new Organigrama(document.getElementById("children"), {
+                        nodeMenu: {
+                            details: { text: "Detalles" }
+                        },
+                        detailUI: new detailForm(),
+                        nodeBinding: {
+                            field_idDir: "pk_Directorio",
+                            field_idUser: "pk_Usuario",
+                            field_login: "loginUsuario",
+                            field_email: "emailUsuario",
+                            field_0: "nombre",
+                            field_pid: "pid"
+                        },
+
+                        nodes: response.nodes,
+                        template: "isla"
+                    });
+                }
+            });
+        }
+
+
+        function init()
+        {
+            //$("#tree").hide();
+            $("#children").show();
+            DesplegarHijos(1007);
+        }
+
+        init();
+
+    </script>
+</body>
+</html>
+

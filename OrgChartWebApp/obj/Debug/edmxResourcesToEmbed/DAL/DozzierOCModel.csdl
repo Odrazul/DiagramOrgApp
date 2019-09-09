@@ -15,9 +15,9 @@
     <Property Name="pk_Directorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nomDirectorio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="cadenaConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="usuarioConexion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="claveConexion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Usuario" Relationship="Self.FK_Directorio_Usuario" FromRole="Directorio" ToRole="Usuario" />
+    <Property Name="campoConfig1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="campoConfig2" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Elemento">
     <Key>

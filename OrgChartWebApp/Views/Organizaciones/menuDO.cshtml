@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>OrgChart</title>
     <script src="~/Scripts/OrgChart.js"></script>
+    <script src="~/Scripts/DiagramOrg.js"></script>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/jsMyOwnTools.js"></script>
     <style>
@@ -21,12 +22,12 @@
 
         #tree {
             width: 100%;
-            height: 50%;
+            height: 100%;
         }
 
         #org {
             width: 100%;
-            height: 50%;
+            height: 100%;
         }
 
         .field_0 {
@@ -84,7 +85,7 @@
                 </div>
             </div>
         </div>*@
-    <div>      
+    <div>
         <button id="buttonBack">Ir Atras</button>
     </div>
     <div id="tree">
@@ -104,26 +105,19 @@
     </div>
 
     <script>
-
-
         //var DOForm = function () {
         //    this.nodeId = null;
         //};
-
         //DOForm.prototype.init = function (obj) {
         //    var that = this;
         //    this.obj = obj;
         //    this.DOForm = document.getElementById("DOForm");
         //    this.nameInput = document.getElementById("nomOrganizacion");
         //    this.titleInput = document.getElementById("titulo");
-
-
         //};
-
         //DOForm.prototype.show = function (nodeId)
         //{
         //    this.nodeId = nodeId;
-
         //    var left = document.body.offsetWidth / 2 - 150;
         //    this.DOForm.style.display = "block";
         //    this.DOForm.style.left = left + "px";
@@ -131,28 +125,89 @@
         //    this.nameInput.value = node.nomOrganizacion;
         //    this.titleInput.value = node.titulo;
         //};
-
         //DOForm.prototype.hide = function (showldUpdateTheNode)
         //{
         //    this.DOForm.style.display = "none";
         //};
-
-
         var chart;
          $.get("@Url.Action("Read")").done(function (response) {
-            chart = new OrgChart(document.getElementById("tree"), {
-                nodeMenu: {
-                    details: { text: "Detalles" },
-                    edit: { text: "Editar" },
-                    addInGroup: { text: "Agregar Grupo" },
-                    add: { text: "Agregar Usuario" },
-                    remove: { text: "Eliminar" }
-                },
-                //editUI: new DOForm(),
+             chart = new OrgChart(document.getElementById("tree"), {
+
+
+                 nodeMenu: {
+                     details: { text: "Detalles" },
+                     edit: { text: "Editar" },
+                     addInGroup: { text: "Agregar Grupo" },
+                     add: { text: "Agregar Usuario" },
+                     remove: { text: "Eliminar" }
+                 },
+                 detailUI: new detailForm(),
+                 nodeBinding: {
+                     field_idTE: "pk_TipoElemento",
+                     field_1: "elemento",
+                     field_idDir: "pk_Directorio",
+                     field_idUser: "pk_Usuario",
+                     field_login: "loginUsuario",
+                     field_email: "emailUsuario",
+                     field_0: "nombreUsuario",
+                     field_idD: "pk_Dependencia",
+                     field_idTI: "pk_TipoIdentificacion",
+                     field_NI: "numIdentificacion",
+                     field_b: "bloqueado",
+                     field_a: "activo",
+                     field_rp: "rolPrincipal",
+                     field_pid: "pid"
+                 },
+
+                 editUI: new editForm(),
+                 nodeBinding: {
+                     field_idTE: "pk_TipoElemento",
+                     field_1: "elemento",
+                     field_idDir: "pk_Directorio",
+                     field_idUser: "pk_Usuario",
+                     field_login: "loginUsuario",
+                     field_email: "emailUsuario",
+                     field_0: "nombreUsuario",
+                     field_idD: "pk_Dependencia",
+                     field_idTI: "pk_TipoIdentificacion",
+                     field_NI: "numIdentificacion",
+                     field_b: "bloqueado",
+                     field_a: "activo",
+                     field_rp: "rolPrincipal",
+                     field_pid: "pid"
+                 },
+                 removeUI: new deleteForm(),
+                 nodeBinding: {
+                     field_idTE: "pk_TipoElemento",
+                     field_1: "elemento",
+                     field_idDir: "pk_Directorio",
+                     field_idUser: "pk_Usuario",
+                     field_login: "loginUsuario",
+                     field_email: "emailUsuario",
+                     field_0: "nombreUsuario",
+                     field_idD: "pk_Dependencia",
+                     field_idTI: "pk_TipoIdentificacion",
+                     field_NI: "numIdentificacion",
+                     field_b: "bloqueado",
+                     field_a: "activo",
+                     field_rp: "rolPrincipal",
+                     field_pid: "pid"
+                 },
+
+
+
+                //nodeMenu: {
+                //    details: { text: "Detalles" },
+                //    edit: { text: "Editar" },
+                //    addInGroup: { text: "Agregar Grupo" },
+                //    add: { text: "Agregar Usuario" },
+                //    remove: { text: "Eliminar" }
+                //},
+                ////editUI: new DOForm(),
                 nodeBinding: {
                     field_0: "nomOrganizacion",
                     field_1: "titulo"
-                },
+                },  
                 nodes: response.nodes,
                 template: "ula",
                 onClick: function (sender, data) {
@@ -162,7 +217,6 @@
                 }
             });
         });
-
         function showParent(idOrg, val) {
             if (val==1) {
                 $("#tree").show();
@@ -172,16 +226,12 @@
                 $("#org").show();
             }
         }
-
         //showParent(null, false);
         $("#tree").show();
         $("#org").show();
-
-
         $("#buttonBack").click(function () {
             showParent(null, 1);
         })
     </script>
 </body>
 </html>
-

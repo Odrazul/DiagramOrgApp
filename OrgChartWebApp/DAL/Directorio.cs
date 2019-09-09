@@ -23,8 +23,8 @@ namespace DiagramOrgApp.DAL
         public int pk_Directorio { get; set; }
         public string nomDirectorio { get; set; }
         public string cadenaConexion { get; set; }
-        public string usuarioConexion { get; set; }
-        public string claveConexion { get; set; }
+        public string campoConfig1 { get; set; }
+        public string campoConfig2 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
